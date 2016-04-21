@@ -65,10 +65,7 @@ foreach ($patterns_files as $pattern_file)
 foreach($file_contents as $line_num => $line)
 	foreach($patterns as $pattern)
 	{
-		$pos1 = stripos($line, $pattern['value']);
-		$pos2 = mb_stripos($line, $pattern['value']);
-
-		if ((false !== $pos1) || (false !== $pos2))
+		if ((false !== stripos($line, $pattern['value'])) || (false !== mb_stripos($line, $pattern['value'])))
 			write_detection($filename, $file_contents, $line_num, $pattern['category'], $pattern['name']);
 	}
 
