@@ -67,7 +67,7 @@ function check_exception($line, $pos1, $pos2, $pattern, $exceptions)
 			$exc_begin = $pos - $exc_pos;
 			$substring = substr($line, $exc_begin, strlen($exception['value']));
 
-			if ($exception['value'] == $substring)
+			if ((strtolower($exception['value']) == strtolower($substring)) || (mb_strtolower($exception['value']) == mb_strtolower($substring)))
 				$if_exception = 1;
 		}
 	}
