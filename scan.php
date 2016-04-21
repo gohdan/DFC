@@ -6,7 +6,7 @@ function write_detection($directory, $filename, $file_contents, $line_num, $patt
 	$det_file_name = $directory."/".$pattern_category."_".$pattern_name.".php";
 
 	if (!file_exists($directory))
-		mkdir($directory);
+		mkdir($directory, 0775, 1);
 
 	$line_begin = $line_num - $config['lines_include'];
 	if ($line_begin < 0)
@@ -84,7 +84,6 @@ $config = array(
 	'max_detection_strlen' => 80,
 	'dangerous_strlen' => 400
 );
-
 
 $filename = $argv[1];
 $file_contents = file($filename, FILE_SKIP_EMPTY_LINES);
