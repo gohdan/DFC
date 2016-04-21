@@ -26,10 +26,10 @@ function write_detection($directory, $filename, $file_contents, $line_num, $patt
 			$string = implode($line_arr, "\n");
 		}
 		if ($i == $line_num)
-			$lines .= "/* ********* DETECTION ******** */\n";
+			$lines .= "\n/* ********* DETECTION ******** */\n";
 		$lines .= $string;
 		if ($i == $line_num)
-			$lines .= "/* ******** end: DETECTION ******** */\n";
+			$lines .= "/* ******** end: DETECTION ******** */\n\n";
 	}
 
 	$file_part = "/* *************** ".$filename." *************** */\n\n";
