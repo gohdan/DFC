@@ -81,7 +81,7 @@ $config = array(
 	'patterns_dir' => "patterns",
 	'exceptions_dir' => "exceptions",
 	'lines_include' => 3,
-	'max_detection_strlen' => 80,
+	'max_detection_strlen' => 150,
 	'dangerous_strlen' => 400
 );
 
