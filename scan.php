@@ -63,10 +63,13 @@ foreach ($patterns_files as $pattern_file)
 		$patterns[] = parse_ini_file($config['patterns_dir']."/".$pattern_file);
 
 foreach($file_contents as $line_num => $line)
+{
 	foreach($patterns as $pattern)
-	{
 		if ((false !== stripos($line, $pattern['value'])) || (false !== mb_stripos($line, $pattern['value'])))
 			write_detection($filename, $file_contents, $line_num, $pattern['category'], $pattern['name']);
-	}
 
+	if (strlen($line) >= $config['dangerous_strlen'])
+		write_detection($filename, $file_contents, $line_num, "long", "lines");
+
+}
 ?>
