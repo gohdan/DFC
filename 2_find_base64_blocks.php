@@ -14,8 +14,6 @@ else
 	{
 		$file_contents = file($filename);
 
-		$if_shell = 0;
-
 		$bad_lines = array();
 
 		foreach($file_contents as $line_num => $line)
