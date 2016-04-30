@@ -8,8 +8,6 @@ else
 {
 	$suspictions = file($argv[1], FILE_IGNORE_NEW_LINES);
 
-	$hashes = array();
-
 	foreach($suspictions as $filename)
 	{
 		$file_contents = file($filename);
