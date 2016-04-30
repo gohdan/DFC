@@ -19,7 +19,7 @@ else
 			$len = strlen($line);
 			if ($len > $config['dangerous_strlen'])
 			{
-				$pattern="/\"([a-zA-Z0-9=+]+)\"/i";
+				$pattern="/\"([a-zA-Z0-9\\\=+]+)\"/i";
 		        if (preg_match_all($pattern, $line, $matches))
 				{
 					foreach ($matches[1] as $match_idx => $match)
