@@ -1,5 +1,7 @@
 <?php
 
+include_once("functions.php");
+
 function write_detection($directory, $filename, $file_contents, $line_num, $pattern_category, $pattern_name)
 {
 	global $config;
@@ -44,6 +46,8 @@ function write_detection($directory, $filename, $file_contents, $line_num, $patt
 
 function check_exception($line, $pos1, $pos2, $pattern, $exceptions)
 {
+	global $config;
+
 	$if_exception = 0;
 
 	if (isset($exceptions[$pattern['category']]))
@@ -74,16 +78,6 @@ function check_exception($line, $pos1, $pos2, $pattern, $exceptions)
 
 	return $if_exception;
 }
-
-global $config;
-$config = array(
-	'detections_dir' => "detections",
-	'patterns_dir' => "patterns",
-	'exceptions_dir' => "exceptions",
-	'lines_include' => 3,
-	'max_detection_strlen' => 150,
-	'dangerous_strlen' => 400
-);
 
 $filename = $argv[1];
 $file_contents = file($filename, FILE_SKIP_EMPTY_LINES);
