@@ -27,7 +27,7 @@ else
 						$mlen = strlen($match);
 						if ($mlen > $config['dangerous_strlen'])
 						{
-							$spaces_qty = substr_count(trim($line), " ");
+							$spaces_qty = substr_count(trim($match), " ");
 							$proportion = $spaces_qty / $mlen;
 							if ($proportion < $config['min_spaces_proportion'])
 							$bad_lines[] = $line_num;
