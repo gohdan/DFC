@@ -26,6 +26,7 @@ else
 				echo ("duplicate ".$file."\n");
 				backup_infected($file);
 				write_detection("duplicates.txt", $file);
+				write_file_del($filename);
 				echo ("deleting ".$file."\n");
 				unlink ($file);
 			}
