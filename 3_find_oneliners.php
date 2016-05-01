@@ -12,7 +12,9 @@ else
 	{
 		$file_contents = file($filename, FILE_IGNORE_NEW_LINES);
 
-		if (count($file_contents) == 1)
+		$lines_qty = count($file_contents);
+
+		if (($lines_qty == 1) || (($lines_qty == 2) && ("?>" == $file_contents[1])))
 		{
 			$line = $file_contents[0];
 			if (false !== strpos($line, "eval"))
