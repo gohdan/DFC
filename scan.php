@@ -2,7 +2,7 @@
 
 include_once("functions.php");
 
-function write_detection($directory, $filename, $file_contents, $line_num, $pattern_category, $pattern_name)
+function write_detection_full($directory, $filename, $file_contents, $line_num, $pattern_category, $pattern_name)
 {
 	global $config;
 	$det_file_name = $directory."/".$pattern_category."_".$pattern_name.".php";
@@ -105,14 +105,14 @@ foreach($file_contents as $line_num => $line)
 		$pos2 = mb_stripos($line, $pattern['value']);
 		if ((false !== $pos1) || (false !== $pos2))
 			if (!check_exception($line, $pos1, $pos2, $pattern, $exceptions))
-				write_detection($config['detections_dir'], $filename, $file_contents, $line_num, $pattern['category'], $pattern['name']);
+				write_detection_full($config['detections_dir'], $filename, $file_contents, $line_num, $pattern['category'], $pattern['name']);
 			else
-				write_detection($config['detections_dir']."/".$config['exceptions_dir'], $filename, $file_contents, $line_num, $pattern['category'], $pattern['name']);
+				write_detection_full($config['detections_dir']."/".$config['exceptions_dir'], $filename, $file_contents, $line_num, $pattern['category'], $pattern['name']);
 
 	}
 
 	if (strlen($line) >= $config['dangerous_strlen'])
-		write_detection($config['detections_dir'], $filename, $file_contents, $line_num, "long", "lines");
+		write_detection_full($config['detections_dir'], $filename, $file_contents, $line_num, "long", "lines");
 
 }
 ?>
