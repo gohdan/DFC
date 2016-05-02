@@ -11,40 +11,43 @@ else
 	foreach($suspictions as $filename)
 	{
 		$file_contents = file($filename);
-
-		$line = $file_contents[0];
-
-		if (false !== strpos($line, "eval"))
+		
+		if (count($file_contents))
 		{
-			$pos1 = strpos($line, "?><?");
-			$pos2 = strpos($line, "?> <?");
+			$line = $file_contents[0];
 
-			if (false !== $pos1)
-				$pos = $pos1;
-			else if (false !== $pos2)
-				$pos = $pos2;
-			else
-				$pos = 0;
-
-			if ($pos)
+			if (false !== strpos($line, "eval"))
 			{
-				write_detection ("head_injects.txt", $filename);
+				$pos1 = strpos($line, "?><?");
+				$pos2 = strpos($line, "?> <?");
 
-				$line_cut = substr($line, 0, 50) . " ... " . substr($line, -50, 50);
-				write_detection ("head_injects.txt", $line_cut);
+				if (false !== $pos1)
+					$pos = $pos1;
+				else if (false !== $pos2)
+					$pos = $pos2;
+				else
+					$pos = 0;
 
-				backup_infected($filename);
+				if ($pos)
+				{
+					write_detection ("head_injects.txt", $filename);
 
-				$file_contents[0] = substr($line, $pos + 2);
+					$line_cut = substr($line, 0, 50) . " ... " . substr($line, -50, 50);
+					write_detection ("head_injects.txt", $line_cut);
 
-				write_file_repl($filename);
+					backup_infected($filename);
 
-				$new_file_contents = "";
-				foreach($file_contents as $line_num => $line)
-					$new_file_contents .= $line;
-				file_put_contents($filename, $new_file_contents);
+					$file_contents[0] = substr($line, $pos + 2);
 
-				write_detection ("head_injects.txt", "\n");
+					write_file_repl($filename);
+
+					$new_file_contents = "";
+					foreach($file_contents as $line_num => $line)
+						$new_file_contents .= $line;
+					file_put_contents($filename, $new_file_contents);
+
+					write_detection ("head_injects.txt", "\n");
+				}
 			}
 		}
 	}
