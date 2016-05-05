@@ -24,11 +24,11 @@ else
 			foreach ($files as $file)
 			{
 				echo ("duplicate ".$file."\n");
-				backup_infected($file);
+				//backup_infected($file);
 				write_detection("duplicates.txt", $file);
-				write_file_del($file);
-				echo ("deleting ".$file."\n");
-				unlink ($file);
+				//write_file_del($file);
+				//echo ("deleting ".$file."\n");
+				//unlink ($file);
 			}
 
 			write_detection("duplicates.txt", "\n");
