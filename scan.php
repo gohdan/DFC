@@ -50,14 +50,14 @@ function check_exception($line, $pos1, $pos2, $pattern, $exceptions)
 
 	$if_exception = 0;
 
-	if (isset($exceptions[$pattern['category']]))
+	if (isset($exceptions[$pattern['name']]))
 	{
 		if (0 == $pos1)
 			$pos = $pos2;
 		else
 			$pos = $pos1;
 
-		foreach($exceptions[$pattern['category']] as $exception)
+		foreach($exceptions[$pattern['name']] as $exception)
 		{
 			$exc_pos1 = stripos($exception['value'], $pattern['value']);
 			$exc_pos2 = mb_stripos($exception['value'], $pattern['value']);
