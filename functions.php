@@ -2,6 +2,7 @@
 
 global $config;
 $config = array(
+	'debug' => 0, // 1 - show debug info, 0 - no debug info
 	'infected_dir' => "virii",
 	'detections_dir' => "detections",
 	'patterns_dir' => "patterns",
