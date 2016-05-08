@@ -48,6 +48,9 @@ function check_exception($line, $pos1, $pos2, $pattern, $exceptions)
 {
 	global $config;
 
+	if ($config['debug'])
+		echo ("checking exception\n");
+
 	$if_exception = 0;
 
 	if (isset($exceptions[$pattern['name']]))
@@ -59,8 +62,19 @@ function check_exception($line, $pos1, $pos2, $pattern, $exceptions)
 
 		foreach($exceptions[$pattern['name']] as $exception)
 		{
-			$exc_pos1 = stripos($exception['value'], $pattern['value']);
-			$exc_pos2 = mb_stripos($exception['value'], $pattern['value']);
+			if ($config['debug'])
+				echo ("exception: ".$exception['name']."\n");
+			$exc = strtolower($exception['value']);
+			$val = strtolower($pattern['value']);
+
+			if ($config['debug'])
+			{
+				echo ("exc: ".$exc."\n");
+				echo ("val: ".$val."\n");
+			}
+
+			$exc_pos1 = stripos($exc, $val);
+			$exc_pos2 = mb_stripos($exc, $val);
 
 			if (false !== $exc_pos1)
 				$exc_pos = $exc_pos1;
@@ -68,25 +82,53 @@ function check_exception($line, $pos1, $pos2, $pattern, $exceptions)
 				$exc_pos = $exc_pos2;
 			else
 				$exc_pos = 0;
-			$exc_begin = $pos - $exc_pos;
-			$substring = substr($line, $exc_begin, strlen($exception['value']));
 
-			if ((strtolower($exception['value']) == strtolower($substring)) || (mb_strtolower($exception['value']) == mb_strtolower($substring)))
+			if ($config['debug'])
+				echo ("pos: ".$pos."\n");
+
+			$exc_begin = $pos - $exc_pos;
+			$substring = substr($line, $exc_begin, strlen($exc));
+
+			if ($config['debug'])
+				echo ("substring: ".$substring."\n");
+
+			if (($exc == strtolower($substring)) || (mb_strtolower($exception['value']) == mb_strtolower($substring)))
+			{
 				$if_exception = 1;
+				break;
+			}
 		}
 	}
+
+	if ($config['debug'] && $if_exception)
+		echo ("exception\n");
 
 	return $if_exception;
 }
 
-$filename = $argv[1];
+if (isset($argv[1]))
+	$filename = $argv[1];
+else
+	$filename = "";
+if (isset($argv[2]))
+	$check_pattern = $argv[2];
+else
+	$check_pattern = "";
+
+if (isset($check_pattern) && $config['debug'])
+	echo ("check pattern: ".$check_pattern."\n");
+
 $file_contents = file($filename, FILE_SKIP_EMPTY_LINES);
 
 $patterns_files = scandir($config['patterns_dir']);
 $patterns = array();
 foreach ($patterns_files as $pattern_file)
 	if ("." != $pattern_file && ".." != $pattern_file)
-		$patterns[] = parse_ini_file($config['patterns_dir']."/".$pattern_file);
+	{
+		$pattern_array = parse_ini_file($config['patterns_dir']."/".$pattern_file);
+		if (("" == $check_pattern) || ($check_pattern == $pattern_array['name']))
+			$patterns[] = $pattern_array;
+	}
 
 $exceptions_files = scandir($config['exceptions_dir']);
 $exceptions = array();
@@ -94,20 +136,29 @@ foreach ($exceptions_files as $exception_file)
 	if ("." != $exception_file && ".." != $exception_file)
 	{
 		$exception_array = parse_ini_file($config['exceptions_dir']."/".$exception_file);
-		$exceptions[$exception_array['category']][] = $exception_array;
+		if (("" == $check_pattern) || ($check_pattern == $exception_array['category']))
+			$exceptions[$exception_array['category']][] = $exception_array;
 	}
 
 foreach($file_contents as $line_num => $line)
 {
+	if ($config['debug'])
+		echo ("line ".$line_num."\n");
 	foreach($patterns as $pattern)
 	{
+		if ($config['debug'])
+			echo ("checking ".$pattern['name']."\n");
 		$pos1 = stripos($line, $pattern['value']);
 		$pos2 = mb_stripos($line, $pattern['value']);
 		if ((false !== $pos1) || (false !== $pos2))
+		{
+			if ($config['debug'])
+				echo ("detection!\n");
 			if (!check_exception($line, $pos1, $pos2, $pattern, $exceptions))
 				write_detection_full($config['detections_dir'], $filename, $file_contents, $line_num, $pattern['category'], $pattern['name']);
 			else
 				write_detection_full($config['detections_dir']."/".$config['exceptions_dir'], $filename, $file_contents, $line_num, $pattern['category'], $pattern['name']);
+		}
 
 	}
 

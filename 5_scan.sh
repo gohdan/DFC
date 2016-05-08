@@ -19,7 +19,7 @@ K=0
 for i in `cat $FILESLIST`; do
 	let K=$K+1
 	echo $K / $QTY $i
-	php -f scan.php "$i"
+	php -f scan.php "$i" $2
 done
 
 # find $1 -name "*.php" -exec php -f scan.php {} \;
