@@ -32,9 +32,14 @@ else
 if (isset($check_pattern) && $config['debug'])
 	echo ("check pattern: ".$check_pattern."\n");
 
+$hashes = array();
+
 $files_qty = count($files);
 foreach($files as $file_idx => $filename)
 {
+	$hash = md5(trim(file_get_contents($filename)));
+	$hashes[$hash][] = $filename;
+
 	$pinfo = pathinfo($filename);
 	if (isset($pinfo['extension']) && ("php" == $pinfo['extension']))
 	{
@@ -93,4 +98,25 @@ foreach($files as $file_idx => $filename)
 
 	}
 }
+
+foreach($hashes as $hash => $files)
+{
+	if (count($files) > 1)
+	{
+		foreach ($files as $file)
+		{
+			if ($config['debug'])
+				echo ("duplicate ".$file."\n");
+			//backup_infected($file);
+			write_detection("duplicates.txt", $file);
+			//write_file_del($file);
+			//echo ("deleting ".$file."\n");
+			//unlink ($file);
+		}
+
+		write_detection("duplicates.txt", "\n");
+		echo ("\n");
+	}
+}
+
 ?>
