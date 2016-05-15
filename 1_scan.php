@@ -104,7 +104,6 @@ foreach($files_php as $file_idx => $filename)
 		}
 	}
 
-
 	foreach($file_contents as $line_num => $line)
 	{
 		if ($config['debug'])
@@ -166,6 +165,34 @@ foreach($files_php as $file_idx => $filename)
 
 		if (!$if_exclude_line)
 		{
+			if (0 == $line_num)
+			{
+				if (false !== strpos($line, "eval"))
+				{
+					$pos1 = strpos($line, "?><?");
+					$pos2 = strpos($line, "?> <?");
+
+					if (false !== $pos1)
+						$pos = $pos1;
+					else if (false !== $pos2)
+						$pos = $pos2;
+					else
+						$pos = 0;
+
+					if ($pos)
+					{
+						write_detection ("head_injects.txt", $filename);
+
+						$line_cut = substr($line, 0, 50) . " ... " . substr($line, -50, 50);
+						write_detection ("head_injects.txt", $line_cut);
+
+						$line = substr($line, $pos + 2);
+
+						write_detection ("head_injects.txt", "\n");
+					}
+				}
+			}
+
 			$new_file_contents .= $line;
 
 			foreach($patterns as $pattern)
