@@ -145,21 +145,6 @@ foreach($files_php as $file_idx => $filename)
 						}
 					}
 				}
-
-				if (!$if_exclude_line)
-				{
-					if ($config['debug'])
-						echo ("no really base64 match, writing long line\n");
-
-					write_detection_full($config['detections_dir'], $filename, $file_contents, $line_num, "long", "lines");
-				}
-
-			}
-			else
-			{
-				if ($config['debug'])
-					echo ("no base64 block pattern match, writing long line\n");
-				write_detection_full($config['detections_dir'], $filename, $file_contents, $line_num, "long", "lines");
 			}
 		}
 
@@ -192,6 +177,9 @@ foreach($files_php as $file_idx => $filename)
 					}
 				}
 			}
+
+			if (strlen($line) >= $config['dangerous_strlen'])
+				write_detection_full($config['detections_dir'], $filename, $file_contents, $line_num, "long", "lines");
 
 			$new_file_contents .= $line;
 
