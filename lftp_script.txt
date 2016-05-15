@@ -1,0 +1,5 @@
+open 'ftp://user:password@host';
+cd 'remotedir';
+set ftp:list-options -a;
+mirror -e --verbose
+bye
