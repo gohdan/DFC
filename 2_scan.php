@@ -47,38 +47,63 @@ foreach($files as $file_idx => $filename)
 
 echo ("scanning PHP files\n");
 
+$patterns_files = scandir($config['patterns_dir']);
+$patterns = array();
+foreach ($patterns_files as $pattern_file)
+	if ("." != $pattern_file && ".." != $pattern_file)
+	{
+		$pattern_array = parse_ini_file($config['patterns_dir']."/".$pattern_file);
+		if (("" == $check_pattern) || ($check_pattern == $pattern_array['name']))
+			$patterns[] = $pattern_array;
+	}
+
+$exceptions_files = scandir($config['exceptions_dir']);
+$exceptions = array();
+foreach ($exceptions_files as $exception_file)
+	if ("." != $exception_file && ".." != $exception_file)
+	{
+		$exception_array = parse_ini_file($config['exceptions_dir']."/".$exception_file);
+		if (("" == $check_pattern) || ($check_pattern == $exception_array['category']))
+			$exceptions[$exception_array['category']][] = $exception_array;
+	}
+
+
 $files_qty = count($files_php);
 foreach($files_php as $file_idx => $filename)
 {
 	echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
 
-	$file_contents = file($filename, FILE_SKIP_EMPTY_LINES);
+	$file_contents = file($filename);
 	$file_contents_string = file_get_contents($filename);
+	$new_file_contents = "";
+
+	$lines_qty = count($file_contents);
 
 	$hash = md5(trim($file_contents_string));
 	$hashes[$hash][] = $filename;
 
-	$new_file_contents = "";
-
-	$patterns_files = scandir($config['patterns_dir']);
-	$patterns = array();
-	foreach ($patterns_files as $pattern_file)
-		if ("." != $pattern_file && ".." != $pattern_file)
+	if (($lines_qty == 1) || (($lines_qty == 2) && ($config['php_close_tag'] == $file_contents[1])))
+	{
+		$line = $file_contents[0];
+		if (false !== strpos($line, "eval"))
 		{
-			$pattern_array = parse_ini_file($config['patterns_dir']."/".$pattern_file);
-			if (("" == $check_pattern) || ($check_pattern == $pattern_array['name']))
-				$patterns[] = $pattern_array;
-		}
+			write_detection ("oneliners.txt", $filename);
+			$line_cut = substr($line, 0, 50) . " ... " . substr($line, -50, 50);
+			write_detection ("oneliners.txt", $line_cut);
+			backup_infected($filename);
 
-	$exceptions_files = scandir($config['exceptions_dir']);
-	$exceptions = array();
-	foreach ($exceptions_files as $exception_file)
-		if ("." != $exception_file && ".." != $exception_file)
-		{
-			$exception_array = parse_ini_file($config['exceptions_dir']."/".$exception_file);
-			if (("" == $check_pattern) || ($check_pattern == $exception_array['category']))
-				$exceptions[$exception_array['category']][] = $exception_array;
+			write_file_del($filename);
+			unlink($filename);
+
+			/* removing file contents to avoid further checking */
+			$file_contents = array();
+			$file_contents_string = "";
+			$new_file_contents = "";
+
+			write_detection ("oneliners.txt", "\n");
 		}
+	}
+
 
 	foreach($file_contents as $line_num => $line)
 	{
@@ -101,9 +126,13 @@ foreach($files_php as $file_idx => $filename)
 
 				foreach ($matches[1] as $match_idx => $match)
 				{
+					if ($config['debug'])
+						echo ("match ".$match_idx."\n");
 					$mlen = strlen($match);
 					if ($mlen > $config['dangerous_strlen'])
 					{
+						if ($config['debug'])
+							echo ("string part is greater than dangerous strlen\n");
 						$spaces_qty = substr_count(trim($match), " ");
 						$proportion = $spaces_qty / $mlen;
 						if ($proportion < $config['min_spaces_proportion'])
@@ -115,22 +144,22 @@ foreach($files_php as $file_idx => $filename)
 							write_detection ("base64_blocks.txt", $line_cut);
 							$if_exclude_line = 1;
 						}
-						else
-						{
-							if ($config['debug'])
-								echo ("enough spaces\n");
-
-							write_detection_full($config['detections_dir'], $filename, $file_contents, $line_num, "long", "lines");
-						}
 					}
-					else
-						write_detection_full($config['detections_dir'], $filename, $file_contents, $line_num, "long", "lines");
 				}
+
+				if (!$if_exclude_line)
+				{
+					if ($config['debug'])
+						echo ("no really base64 match, writing long line\n");
+
+					write_detection_full($config['detections_dir'], $filename, $file_contents, $line_num, "long", "lines");
+				}
+
 			}
 			else
 			{
 				if ($config['debug'])
-					echo ("no base64 block pattern match\n");
+					echo ("no base64 block pattern match, writing long line\n");
 				write_detection_full($config['detections_dir'], $filename, $file_contents, $line_num, "long", "lines");
 			}
 		}

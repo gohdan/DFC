@@ -13,7 +13,8 @@ $config = array(
 	'max_detection_strlen' => 150,
 	'dangerous_strlen' => 400,
 	'slash' => "/",
-	'min_spaces_proportion' => '0.01'
+	'min_spaces_proportion' => '0.01',
+	'php_close_tag' => '?>'
 );
 
 function get_files_list ($dir, $files)
