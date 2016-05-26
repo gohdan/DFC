@@ -248,5 +248,212 @@ function check_exception($line, $pos1, $pos2, $pattern, $exceptions)
 	return $if_exception;
 }
 
+function update_file($filename, $new_file_contents)
+{
+	global $config;
+
+	backup_infected($filename);
+
+	if (strlen(trim($new_file_contents)) == 0)
+	{
+		if ($config['debug'])
+			echo ("file becomes empty, deleting\n");
+		write_file_del($filename);
+		unlink($filename);
+	}
+	else
+	{
+		if ($config['debug'])
+			echo ("overwriting file\n");
+		write_file_repl($filename);
+		file_put_contents($filename, $new_file_contents);
+	}
+	return 1;
+}
+
+function check_js_file($filename)
+{
+	global $config;
+	global $hashes;
+
+	$file_contents = file($filename);
+	$file_contents_string = file_get_contents($filename);
+	$new_file_contents = "";
+	$hash = md5(trim($file_contents_string));
+	$hashes[$hash][] = $filename;
+
+	if (false !== strpos($file_contents_string, "php"))
+		write_detection ("php_in_js.txt", $filename);
+
+	$lines_qty = count($file_contents);
+	$line = $file_contents[$lines_qty - 1];
+
+	$pos = strrpos($line, "function");
+	if (isset($line[$pos - 1]) && ("(" == $line[$pos - 1]))
+		$pos = $pos - 1;
+	$last_function = substr($line, $pos);
+
+	if ((false !== strpos($last_function, "eval")) && (false !== strpos($last_function, "charAt")))
+	{
+		$line = substr($line, 0, $pos);
+		write_detection ("js_injects.txt", $filename);
+		write_detection ("js_injects.txt", $last_function);
+		write_detection ("js_injects.txt", "\n");
+	}
+
+	$file_contents[$lines_qty - 1] = $line;
+	foreach($file_contents as $k => $v)
+		$new_file_contents .= $v;
+
+	if ($new_file_contents != $file_contents_string)
+		update_file($filename, $new_file_contents);
+
+	return 1;
+}
+
+function check_php_file($filename, $patterns, $exceptions)
+{
+	global $config;
+	global $hashes;
+
+	$file_contents = file($filename);
+	$file_contents_string = file_get_contents($filename);
+	$new_file_contents = "";
+
+	$lines_qty = count($file_contents);
+
+	$hash = md5(trim($file_contents_string));
+	$hashes[$hash][] = $filename;
+
+	if (($lines_qty == 1) || (($lines_qty == 2) && ($config['php_close_tag'] == $file_contents[1])))
+	{
+		$line = $file_contents[0];
+		if (false !== strpos($line, "eval"))
+		{
+			write_detection ("oneliners.txt", $filename);
+			$line_cut = substr($line, 0, 50) . " ... " . substr($line, -50, 50);
+			write_detection ("oneliners.txt", $line_cut);
+			backup_infected($filename);
+
+			write_file_del($filename);
+			unlink($filename);
+
+			/* removing file contents to avoid further checking */
+			$file_contents = array();
+			$file_contents_string = "";
+			$new_file_contents = "";
+
+			write_detection ("oneliners.txt", "\n");
+		}
+	}
+
+	foreach($file_contents as $line_num => $line)
+	{
+		if ($config['debug'])
+			echo ("line ".$line_num."\n");
+
+		$if_exclude_line = 0;
+
+		if (strlen($line) >= $config['dangerous_strlen'])
+		{
+			if ($config['debug'])
+				echo ("dangerous strlen\n");
+
+			/* Search of big base64 blocks */
+			$pattern="/([a-zA-Z0-9\\\=\/+]+)/i";
+	        if (preg_match_all($pattern, $line, $matches))
+			{
+				if ($config['debug'])
+					echo ("have base64 block pattern match\n");
+
+				foreach ($matches[1] as $match_idx => $match)
+				{
+					if ($config['debug'])
+						echo ("match ".$match_idx."\n");
+					$mlen = strlen($match);
+					if ($mlen > $config['dangerous_strlen'])
+					{
+						if ($config['debug'])
+							echo ("string part is greater than dangerous strlen\n");
+						$spaces_qty = substr_count(trim($match), " ");
+						$proportion = $spaces_qty / $mlen;
+						if ($proportion < $config['min_spaces_proportion'])
+						{
+							if ($config['debug'])
+								echo ("not enough spaces, removing line from file\n");
+							write_detection ("base64_blocks.txt", $filename);
+							$line_cut = ($line_num + 1) . ": " . substr($line, 0, 50) . " ... " . substr($line, -50, 50);
+							write_detection ("base64_blocks.txt", $line_cut);
+							$if_exclude_line = 1;
+						}
+					}
+				}
+			}
+		}
+
+		if (!$if_exclude_line)
+		{
+			if (0 == $line_num)
+			{
+				if (false !== strpos($line, "eval"))
+				{
+					$pos1 = strpos($line, "?><?");
+					$pos2 = strpos($line, "?> <?");
+
+					if (false !== $pos1)
+						$pos = $pos1;
+					else if (false !== $pos2)
+						$pos = $pos2;
+					else
+						$pos = 0;
+
+					if ($pos)
+					{
+						write_detection ("head_injects.txt", $filename);
+
+						$line_cut = substr($line, 0, 50) . " ... " . substr($line, -50, 50);
+						write_detection ("head_injects.txt", $line_cut);
+
+						$line = substr($line, $pos + 2);
+
+						write_detection ("head_injects.txt", "\n");
+					}
+				}
+			}
+
+			if (strlen($line) >= $config['dangerous_strlen'])
+				write_detection_full($config['detections_dir'], $filename, $file_contents, $line_num, "long", "lines");
+
+			$new_file_contents .= $line;
+
+			foreach($patterns as $pattern)
+			{
+				if ($config['debug'])
+					echo ("checking ".$pattern['name']."\n");
+				$pos1 = stripos($line, $pattern['value']);
+				$pos2 = mb_stripos($line, $pattern['value']);
+				if ((false !== $pos1) || (false !== $pos2))
+				{
+					if ($config['debug'])
+						echo ("detection!\n");
+					if (!check_exception($line, $pos1, $pos2, $pattern, $exceptions))
+						write_detection_full($config['detections_dir'], $filename, $file_contents, $line_num, $pattern['category'], $pattern['name']);
+					else
+						write_detection_full($config['detections_dir']."/".$config['exceptions_dir'], $filename, $file_contents, $line_num, $pattern['category'], $pattern['name']);
+				}
+			}
+		}
+		else
+			if ($config['debug'])
+				echo ("excluding line from file\n");
+	}
+
+	if ($new_file_contents != $file_contents_string)
+		update_file($filename, $new_file_contents);
+
+	return 1;
+}
+
+
 
 ?>
