@@ -285,6 +285,8 @@ function check_js_file($filename)
 	if (false !== strpos($file_contents_string, "php"))
 		write_detection ("php_in_js.txt", $filename);
 
+
+	/* Bad functions detect */
 	$lines_qty = count($file_contents);
 	$line = $file_contents[$lines_qty - 1];
 
@@ -301,9 +303,24 @@ function check_js_file($filename)
 		write_detection ("js_injects.txt", "\n");
 	}
 
+	/* Bad variables detect */
+
+	$pos = strrpos($line, "var", -(strlen($line) - $pos));
+	$last_var = substr($line, $pos);
+
+	if (false !== strpos($last_var, "\\x"))
+	{
+		$line = substr($line, 0, $pos);
+		write_detection ("js_injects.txt", $filename);
+		write_detection ("js_injects.txt", $last_var);
+		write_detection ("js_injects.txt", "\n");
+	}
+
+
 	$file_contents[$lines_qty - 1] = $line;
 	foreach($file_contents as $k => $v)
 		$new_file_contents .= $v;
+
 
 	if ($new_file_contents != $file_contents_string)
 		update_file($filename, $new_file_contents);
