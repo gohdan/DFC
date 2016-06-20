@@ -25,7 +25,12 @@ switch(filetype($scan_target))
 }
 
 if (isset($argv[2]))
-	$check_pattern = $argv[2];
+	$check_filetype = $argv[2];
+else
+	$check_filetype = "";
+
+if (isset($argv[3]))
+	$check_pattern = $argv[3];
 else
 	$check_pattern = "";
 
@@ -61,58 +66,66 @@ foreach($files as $file_idx => $filename)
 		$files_other[] = $filename;
 }
 
-echo ("scanning PHP files\n");
-
-$patterns_files = scandir($config['patterns_dir']);
-$patterns = array();
-foreach ($patterns_files as $pattern_file)
-	if ("." != $pattern_file && ".." != $pattern_file)
-	{
-		$pattern_array = parse_ini_file($config['patterns_dir']."/".$pattern_file);
-		if (("" == $check_pattern) || ($check_pattern == $pattern_array['name']))
-			$patterns[] = $pattern_array;
-	}
-
-$exceptions_files = scandir($config['exceptions_dir']);
-$exceptions = array();
-foreach ($exceptions_files as $exception_file)
-	if ("." != $exception_file && ".." != $exception_file)
-	{
-		$exception_array = parse_ini_file($config['exceptions_dir']."/".$exception_file);
-		if (("" == $check_pattern) || ($check_pattern == $exception_array['category']))
-			$exceptions[$exception_array['category']][] = $exception_array;
-	}
-
-
-$files_qty = count($files_php);
-foreach($files_php as $file_idx => $filename)
+if ("" == $check_filetype || "php" == $check_filetype)
 {
-	echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
-	check_php_file($filename, $patterns, $exceptions);
+	echo ("scanning PHP files\n");
+
+	$patterns_files = scandir($config['patterns_dir']);
+	$patterns = array();
+	foreach ($patterns_files as $pattern_file)
+		if ("." != $pattern_file && ".." != $pattern_file)
+		{
+			$pattern_array = parse_ini_file($config['patterns_dir']."/".$pattern_file);
+			if (("" == $check_pattern) || ($check_pattern == $pattern_array['name']))
+				$patterns[] = $pattern_array;
+		}
+
+	$exceptions_files = scandir($config['exceptions_dir']);
+	$exceptions = array();
+	foreach ($exceptions_files as $exception_file)
+		if ("." != $exception_file && ".." != $exception_file)
+		{
+			$exception_array = parse_ini_file($config['exceptions_dir']."/".$exception_file);
+			if (("" == $check_pattern) || ($check_pattern == $exception_array['category']))
+				$exceptions[$exception_array['category']][] = $exception_array;
+		}
+
+	$files_qty = count($files_php);
+	foreach($files_php as $file_idx => $filename)
+	{
+		echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
+		check_php_file($filename, $patterns, $exceptions);
+	}
 }
 
-echo ("scanning JS files\n");
-
-$files_qty = count($files_js);
-foreach($files_js as $file_idx => $filename)
+if ("" == $check_filetype || "js" == $check_filetype)
 {
-	echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
-	check_js_file($filename);
+	echo ("scanning JS files\n");
+
+	$files_qty = count($files_js);
+	foreach($files_js as $file_idx => $filename)
+	{
+		echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
+		check_js_file($filename);
+	}
 }
 
-echo ("scanning other files\n");
-
-$files_qty = count($files_other);
-foreach($files_other as $file_idx => $filename)
+if ("" == $check_filetype || "other" == $check_filetype)
 {
-	echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
+	echo ("scanning other files\n");
 
-	$file_contents_string = file_get_contents($filename);
-	$hash = md5(trim($file_contents_string));
-	$hashes[$hash][] = $filename;
+	$files_qty = count($files_other);
+	foreach($files_other as $file_idx => $filename)
+	{
+		echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
 
-	if (false !== strpos($file_contents_string, "php"))
-		write_detection ("php_in_otherfiles.txt", $filename);
+		$file_contents_string = file_get_contents($filename);
+		$hash = md5(trim($file_contents_string));
+		$hashes[$hash][] = $filename;
+
+		if (false !== strpos($file_contents_string, "php"))
+			write_detection ("php_in_otherfiles.txt", $filename);
+	}
 }
 
 
