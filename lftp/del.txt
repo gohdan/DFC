@@ -1,6 +1,6 @@
 set ftp:list-options -a;
 set xfer:log 1;
-set xfer:log-file xfer.log
+set xfer:log-file ../xfer.log
 open 'ftp://user:password@host';
 cd 'remotedir';
 rm file.txt

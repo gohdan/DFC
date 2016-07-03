@@ -3,5 +3,5 @@ set xfer:log 1;
 set xfer:log-file ../xfer.log
 open 'ftp://user:password@host';
 cd 'remotedir';
-mirror -e --verbose
+dir
 bye
