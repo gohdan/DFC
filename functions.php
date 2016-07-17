@@ -412,15 +412,18 @@ function check_php_file($filename, $patterns, $exceptions)
 		{
 			if (0 == $line_num)
 			{
-				if (false !== strpos($line, "eval"))
+				while (false !== strpos($line, "eval"))
 				{
 					$pos1 = strpos($line, "?><?");
 					$pos2 = strpos($line, "?> <?");
+					$pos3 = strpos($line, "?>");
 
 					if (false !== $pos1)
 						$pos = $pos1;
 					else if (false !== $pos2)
 						$pos = $pos2;
+					else if (false !== $pos3)
+						$pos = $pos3;
 					else
 						$pos = 0;
 
