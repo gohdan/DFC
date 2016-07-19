@@ -282,11 +282,19 @@ function check_js_file($filename)
 	$hash = md5(trim($file_contents_string));
 	$hashes[$hash][] = $filename;
 
+	$dangerous_functions = array(
+		'charAt',
+		'charCodeAt',
+		'fromCharCode',
+		'document'
+	);
+
+
 	if (false !== strpos($file_contents_string, "php"))
 		write_detection ("php_in_js.txt", $filename);
 
+	/* === Type 1 detect (bad functions) === */
 
-	/* Bad functions detect */
 	$lines_qty = count($file_contents);
 	$line = $file_contents[$lines_qty - 1];
 
@@ -298,12 +306,14 @@ function check_js_file($filename)
 	if ((false !== strpos($last_function, "eval")) && (false !== strpos($last_function, "charAt")))
 	{
 		$line = substr($line, 0, $pos);
-		write_detection ("js_injects.txt", $filename);
-		write_detection ("js_injects.txt", $last_function);
-		write_detection ("js_injects.txt", "\n");
+		write_detection ("js_injects_1.txt", $filename);
+		write_detection ("js_injects_1.txt", $last_function);
+		write_detection ("js_injects_1.txt", "\n");
 	}
 
-	/* Bad variables detect */
+	/* === end: Type 1 detect === */
+
+	/* === Type 2 detect (bad variables) === */
 
 	$pos = strrpos($line, "var", -(strlen($line) - $pos));
 	$last_var = substr($line, $pos);
@@ -311,10 +321,65 @@ function check_js_file($filename)
 	if (false !== strpos($last_var, "\\x"))
 	{
 		$line = substr($line, 0, $pos);
-		write_detection ("js_injects.txt", $filename);
-		write_detection ("js_injects.txt", $last_var);
-		write_detection ("js_injects.txt", "\n");
+		write_detection ("js_injects_1.txt", $filename);
+		write_detection ("js_injects_1.txt", $last_var);
+		write_detection ("js_injects_1.txt", "\n");
 	}
+
+	/* === end: Type 2 detect === */
+
+	/* === Type 3 detect === */
+
+	$delimiters = array(
+		';',
+		'}',
+		')',
+		'/'
+	);
+
+	$points = 0;
+	//$line_arr = explode(";", $line);
+	$line_arr = array();
+	$line_split = str_split($line);
+	$i = 0;
+	for ($j = 0; $j < count($line_split); $j++)
+	{
+		if (!isset($line_arr[$i]))
+			$line_arr[$i] = "";
+		$line_arr[$i] .= $line_split[$j];
+		if (in_array($line_split[$j], $delimiters))
+			$i++;
+	}
+
+	$el_last = count($line_arr) - 1;
+	$el_first = count($line_arr) - 65;
+
+	if ($el_first >= 0)
+	{
+		for ($i = $el_first; $i <= $el_last; $i++)
+			foreach ($dangerous_functions as $fn)
+			if (false !== strpos($line_arr[$i], $fn))
+				$points++;
+		if ($points > 4)
+		{
+			$remove = "";
+			for($i = $el_first; $i <= $el_last; $i++)
+			{
+				$remove .= $line_arr[$i];
+				unset($line_arr[$i]);
+			}
+
+			$line = implode("", $line_arr);
+
+			write_detection ("js_injects_3.txt", $filename);
+			write_detection ("js_injects_3.txt", $remove);
+			write_detection ("js_injects_3.txt", "\n");
+		}
+	}
+
+
+
+	/* === end: Type 3 detect === */
 
 
 	$file_contents[$lines_qty - 1] = $line;
@@ -412,18 +477,15 @@ function check_php_file($filename, $patterns, $exceptions)
 		{
 			if (0 == $line_num)
 			{
-				while (false !== strpos($line, "eval"))
+				if (false !== strpos($line, "eval"))
 				{
 					$pos1 = strpos($line, "?><?");
 					$pos2 = strpos($line, "?> <?");
-					$pos3 = strpos($line, "?>");
 
 					if (false !== $pos1)
 						$pos = $pos1;
 					else if (false !== $pos2)
 						$pos = $pos2;
-					else if (false !== $pos3)
-						$pos = $pos3;
 					else
 						$pos = 0;
 
