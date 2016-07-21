@@ -1,7 +1,11 @@
 set ftp:list-options -a;
 set xfer:log 1;
 set xfer:log-file ../xfer.log
-open 'ftp://user:password@host';
+
+open 'ftp://host';
+user user password
 cd 'remotedir';
+
 mirror -e --verbose
+
 bye
