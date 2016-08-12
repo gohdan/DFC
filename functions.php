@@ -289,13 +289,22 @@ function check_js_file($filename)
 		'document'
 	);
 
-
 	if (false !== strpos($file_contents_string, "php"))
 		write_detection ("php_in_js.txt", $filename);
 
+	$lines_qty = count($file_contents);
+
+	write_detection ("js_heads.txt", $filename);
+	write_detection ("js_heads.txt", substr($file_contents[0], 0, 60) . " ... " . substr($file_contents[0], -60));
+	write_detection ("js_heads.txt", "\n");
+
+	write_detection ("js_tails.txt", $filename);
+	write_detection ("js_tails.txt", substr($file_contents[$lines_qty - 1], 0, 60) . " ... " . substr($file_contents[$lines_qty - 1], -60));
+	write_detection ("js_tails.txt", "\n");
+
 	/* === Type 1 detect (bad functions) === */
 
-	$lines_qty = count($file_contents);
+
 	$line = $file_contents[$lines_qty - 1];
 
 	$pos = strrpos($line, "function");
