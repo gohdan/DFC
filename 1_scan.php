@@ -106,7 +106,21 @@ if ("" == $check_filetype || "js" == $check_filetype)
 	foreach($files_js as $file_idx => $filename)
 	{
 		echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
-		check_js_file($filename);
+		if (isset($check_pattern))
+		{
+			switch($check_pattern)
+			{
+				default:
+					check_js_file($filename);
+				break;
+
+				case "remove_last_line":
+					remove_last_line($filename);
+				break;
+			}
+		}
+		else
+			check_js_file($filename);
 	}
 }
 

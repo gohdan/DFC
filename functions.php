@@ -393,6 +393,29 @@ function check_js_file($filename)
 	return 1;
 }
 
+function remove_last_line($filename)
+{
+	global $config;
+
+	$file_contents = file($filename);
+	$file_contents_string = file_get_contents($filename);
+
+	$line = array_pop($file_contents);
+
+	write_detection ("last_lines.txt", $filename);
+	write_detection ("last_lines.txt", substr($line, 0, 60) . " ... " . substr($line, -60));
+	write_detection ("last_lines.txt", "\n");
+
+
+	$new_file_contents = "";
+	foreach($file_contents as $k => $v)
+		$new_file_contents .= $v;
+
+	update_file($filename, $new_file_contents);
+
+	return 1;
+}
+
 function check_php_file($filename, $patterns, $exceptions)
 {
 	global $config;
@@ -535,7 +558,6 @@ function check_php_file($filename, $patterns, $exceptions)
 
 	return 1;
 }
-
 
 
 ?>
