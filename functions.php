@@ -14,8 +14,43 @@ $config = array(
 	'dangerous_strlen' => 400,
 	'slash' => "/",
 	'min_spaces_proportion' => '0.01',
-	'php_close_tag' => '?>'
+	'php_close_tag' => '?>',
+	'big_file_size' => '1048576'
 );
+
+function get_memory_limit()
+{
+	global $config;
+
+	$memory_limit = ini_get("memory_limit");
+
+	$memory_limit_unit = substr($memory_limit, -1);
+	$memory_limit_size = substr($memory_limit, 0, strlen($memory_limit) - 1);
+
+	switch($memory_limit_unit)
+	{
+		default:
+			if (is_numeric($memory_limit))
+				$memory_limit_real = $memory_limit;
+			else
+				$memory_limit_real = $config['big_file_size'];
+		break;
+
+		case "K":
+			$memory_limit_real = $memory_limit_size * 1024;
+		break;
+
+		case "M":
+			$memory_limit_real = $memory_limit_size * 1024 * 1024;
+		break;
+
+		case "G":
+			$memory_limit_real = $memory_limit_size * 1024 * 1024 * 1024;
+		break;
+	}
+
+	return $memory_limit_real;
+}
 
 function get_files_list ($dir, $files)
 {
