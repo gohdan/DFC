@@ -37,8 +37,6 @@ else
 if (isset($check_pattern) && $config['debug'])
 	echo ("check pattern: ".$check_pattern."\n");
 
-$memory_limit = round(0.9 * get_memory_limit());
-
 global $hashes;
 $hashes = array();
 
@@ -47,25 +45,34 @@ $files_js = array();
 $files_other = array();
 foreach($files as $file_idx => $filename)
 {
-	$pinfo = pathinfo($filename);
-	if (isset($pinfo['extension']))
-		switch ($pinfo['extension'])
-		{
-			default: 
-				$files_other[] = $filename;
-			break;
-
-			case "php":
-				$files_php[] = $filename;
-			break;
-
-			case "js":
-				$files_js[] = $filename;
-			break;
-		}
-
+	$memory_limit = round(0.9 * get_memory_limit());
+	$filesize = filesize($filename);
+	if ($filesize > $memory_limit || $filesize > $config['big_file_size'])
+		write_detection ("files_big.txt", $filename."\n");
+	else if (0 == $filesize)
+		write_detection ("files_empty.txt", $filename."\n");
 	else
-		$files_other[] = $filename;
+	{
+		$pinfo = pathinfo($filename);
+		if (isset($pinfo['extension']))
+			switch ($pinfo['extension'])
+			{
+				default: 
+					$files_other[] = $filename;
+				break;
+
+				case "php":
+					$files_php[] = $filename;
+				break;
+
+				case "js":
+					$files_js[] = $filename;
+				break;
+			}
+
+		else
+			$files_other[] = $filename;
+	}
 }
 
 if ("" == $check_filetype || "php" == $check_filetype)
@@ -96,11 +103,7 @@ if ("" == $check_filetype || "php" == $check_filetype)
 	foreach($files_php as $file_idx => $filename)
 	{
 		echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
-		$filesize = filesize($filename);
-		if ($filesize > $memory_limit || $filesize > $config['big_file_size'])
-			write_detection ("big_files_php.txt", $filename."\n");
-		else
-			check_php_file($filename, $patterns, $exceptions);
+		check_php_file($filename, $patterns, $exceptions);
 	}
 }
 
@@ -113,27 +116,21 @@ if ("" == $check_filetype || "js" == $check_filetype)
 	{
 		echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
 
-		$filesize = filesize($filename);
-		if ($filesize > $memory_limit || $filesize > $config['big_file_size'])
-			write_detection ("big_files_js.txt", $filename."\n");
-		else
-		{	
-			if (isset($check_pattern))
+		if (isset($check_pattern))
+		{
+			switch($check_pattern)
 			{
-				switch($check_pattern)
-				{
-					default:
-						check_js_file($filename);
-					break;
+				default:
+					check_js_file($filename);
+				break;
 
-					case "remove_last_line":
-						remove_last_line($filename);
-					break;
-				}
+				case "remove_last_line":
+					remove_last_line($filename);
+				break;
 			}
-			else
-				check_js_file($filename);
 		}
+		else
+			check_js_file($filename);
 	}
 }
 
@@ -146,18 +143,12 @@ if ("" == $check_filetype || "other" == $check_filetype)
 	{
 		echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
 
-		$filesize = filesize($filename);
-		if ($filesize > $memory_limit || $filesize > $config['big_file_size'])
-			write_detection ("big_files_other.txt", $filename."\n");
-		else
-		{
-			$file_contents_string = file_get_contents($filename);
-			$hash = md5(trim($file_contents_string));
-			$hashes[$hash][] = $filename;
+		$file_contents_string = file_get_contents($filename);
+		$hash = md5(trim($file_contents_string));
+		$hashes[$hash][] = $filename;
 
-			if (false !== strpos($file_contents_string, "php"))
-				write_detection ("php_in_otherfiles.txt", $filename);
-		}
+		if (false !== strpos($file_contents_string, "php"))
+			write_detection ("php_in_otherfiles.txt", $filename);
 	}
 }
 
@@ -170,10 +161,10 @@ foreach($hashes as $hash => $files)
 		{
 			if ($config['debug'])
 				echo ("duplicate ".$file."\n");
-			write_detection("duplicates.txt", $file);
+			write_detection("files_duplicate.txt", $file);
 		}
 
-		write_detection("duplicates.txt", "\n");
+		write_detection("files_duplicate.txt", "\n");
 	}
 }
 
