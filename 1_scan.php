@@ -42,6 +42,10 @@ $hashes = array();
 
 $files_php = array();
 $files_js = array();
+$files_jpg = array();
+$files_png = array();
+$files_gif = array();
+$files_bmp = array();
 $files_other = array();
 foreach($files as $file_idx => $filename)
 {
@@ -55,7 +59,7 @@ foreach($files as $file_idx => $filename)
 	{
 		$pinfo = pathinfo($filename);
 		if (isset($pinfo['extension']))
-			switch ($pinfo['extension'])
+			switch (strtolower($pinfo['extension']))
 			{
 				default: 
 					$files_other[] = $filename;
@@ -68,6 +72,27 @@ foreach($files as $file_idx => $filename)
 				case "js":
 					$files_js[] = $filename;
 				break;
+
+				case "jpg":
+					$files_jpg[] = $filename;
+				break;
+
+				case "jpeg":
+					$files_jpg[] = $filename;
+				break;
+
+				case "png":
+					$files_png[] = $filename;
+				break;
+
+				case "bmp":
+					$files_bmp[] = $filename;
+				break;
+
+				case "gif":
+					$files_gif[] = $filename;
+				break;
+
 			}
 
 		else
@@ -134,6 +159,110 @@ if ("" == $check_filetype || "js" == $check_filetype)
 	}
 }
 
+if ("" == $check_filetype || "jpg" == $check_filetype)
+{
+	echo ("scanning jpg files\n");
+
+	$files_qty = count($files_jpg);
+	foreach($files_jpg as $file_idx => $filename)
+	{
+		echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
+
+		$file_contents_string = file_get_contents($filename);
+		$hash = md5(trim($file_contents_string));
+		$hashes[$hash][] = $filename;
+
+		$pos = stripos($file_contents_string, "php");
+		if (false !== $pos)
+		{
+			$begin = $pos - 10;
+			if ($begin < 0)
+				$begin = 0;
+			write_detection ("php_in_jpg.txt", $filename);
+			write_detection ("php_in_jpg.txt", substr($file_contents_string, $begin, 20));
+			write_detection ("php_in_jpg.txt", "\n");
+		}
+	}
+}
+
+if ("" == $check_filetype || "png" == $check_filetype)
+{
+	echo ("scanning png files\n");
+
+	$files_qty = count($files_png);
+	foreach($files_png as $file_idx => $filename)
+	{
+		echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
+
+		$file_contents_string = file_get_contents($filename);
+		$hash = md5(trim($file_contents_string));
+		$hashes[$hash][] = $filename;
+
+		$pos = stripos($file_contents_string, "php");
+		if (false !== $pos)
+		{
+			$begin = $pos - 10;
+			if ($begin < 0)
+				$begin = 0;
+			write_detection ("php_in_png.txt", $filename);
+			write_detection ("php_in_png.txt", substr($file_contents_string, $begin, 20));
+			write_detection ("php_in_png.txt", "\n");
+		}
+	}
+}
+
+if ("" == $check_filetype || "gif" == $check_filetype)
+{
+	echo ("scanning gif files\n");
+
+	$files_qty = count($files_gif);
+	foreach($files_gif as $file_idx => $filename)
+	{
+		echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
+
+		$file_contents_string = file_get_contents($filename);
+		$hash = md5(trim($file_contents_string));
+		$hashes[$hash][] = $filename;
+
+		$pos = stripos($file_contents_string, "php");
+		if (false !== $pos)
+		{
+			$begin = $pos - 10;
+			if ($begin < 0)
+				$begin = 0;
+			write_detection ("php_in_gif.txt", $filename);
+			write_detection ("php_in_gif.txt", substr($file_contents_string, $begin, 20));
+			write_detection ("php_in_gif.txt", "\n");
+		}
+	}
+}
+
+if ("" == $check_filetype || "bmp" == $check_filetype)
+{
+	echo ("scanning bmp files\n");
+
+	$files_qty = count($files_bmp);
+	foreach($files_bmp as $file_idx => $filename)
+	{
+		echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
+
+		$file_contents_string = file_get_contents($filename);
+		$hash = md5(trim($file_contents_string));
+		$hashes[$hash][] = $filename;
+
+		$pos = stripos($file_contents_string, "php");
+		if (false !== $pos)
+		{
+			$begin = $pos - 10;
+			if ($begin < 0)
+				$begin = 0;
+			write_detection ("php_in_bmp.txt", $filename);
+			write_detection ("php_in_bmp.txt", substr($file_contents_string, $begin, 20));
+			write_detection ("php_in_bmp.txt", "\n");
+		}
+	}
+}
+
 if ("" == $check_filetype || "other" == $check_filetype)
 {
 	echo ("scanning other files\n");
@@ -147,8 +276,16 @@ if ("" == $check_filetype || "other" == $check_filetype)
 		$hash = md5(trim($file_contents_string));
 		$hashes[$hash][] = $filename;
 
-		if (false !== strpos($file_contents_string, "php"))
+		$pos = stripos($file_contents_string, "php");
+		if (false !== $pos)
+		{
+			$begin = $pos - 10;
+			if ($begin < 0)
+				$begin = 0;
 			write_detection ("php_in_otherfiles.txt", $filename);
+			write_detection ("php_in_otherfiles.txt", substr($file_contents_string, $begin, 20));
+			write_detection ("php_in_otherfiles.txt", "\n");
+		}
 	}
 }
 
