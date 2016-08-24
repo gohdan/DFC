@@ -41,12 +41,15 @@ global $hashes;
 $hashes = array();
 
 $files_php = array();
+$files_htaccess = array();
 $files_js = array();
 $files_jpg = array();
 $files_png = array();
 $files_gif = array();
 $files_bmp = array();
 $files_other = array();
+
+
 foreach($files as $file_idx => $filename)
 {
 	$memory_limit = round(0.9 * get_memory_limit());
@@ -67,6 +70,10 @@ foreach($files as $file_idx => $filename)
 
 				case "php":
 					$files_php[] = $filename;
+				break;
+
+				case "htaccess":
+					$files_htaccess[] = $filename;
 				break;
 
 				case "js":
@@ -131,6 +138,33 @@ if ("" == $check_filetype || "php" == $check_filetype)
 		check_php_file($filename, $patterns, $exceptions);
 	}
 }
+
+if ("" == $check_filetype || "htaccess" == $check_filetype)
+{
+	echo ("scanning htaccess files\n");
+
+	$files_qty = count($files_htaccess);
+	foreach($files_htaccess as $file_idx => $filename)
+	{
+		echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
+
+		$file_contents_string = file_get_contents($filename);
+		$hash = md5(trim($file_contents_string));
+		$hashes[$hash][] = $filename;
+
+		$pos = stripos($file_contents_string, "AddHandler");
+		if (false !== $pos)
+		{
+			$begin = $pos - 20;
+			if ($begin < 0)
+				$begin = 0;
+			write_detection ("htaccess_addhandler.txt", $filename);
+			write_detection ("htaccess_addhandler.txt", substr($file_contents_string, $begin, 20));
+			write_detection ("htaccess_addhandler.txt", "\n");
+		}
+	}
+}
+
 
 if ("" == $check_filetype || "js" == $check_filetype)
 {
