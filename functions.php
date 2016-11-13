@@ -15,7 +15,39 @@ $config = array(
 	'slash' => "/",
 	'min_spaces_proportion' => '0.01',
 	'php_close_tag' => '?>',
-	'big_file_size' => '1048576'
+	'big_file_size' => '1048576',
+	'strange_symbols' => array(
+		'0' => array (
+			'name' => 'at',
+			'value' => '@',
+			'dang_qty' => '3'
+		),
+		'1' => array (
+			'name' => 'dollar',
+			'value' => '$',
+			'dang_qty' => '8'
+		),
+		'2' => array (
+			'name' => 'brace_curly_left',
+			'value' => '{',
+			'dang_qty' => '8'
+		),
+		'3' => array (
+			'name' => 'brace_curly_right',
+			'value' => '}',
+			'dang_qty' => '8'
+		),
+		'4' => array (
+			'name' => 'bracket_square_left',
+			'value' => '[',
+			'dang_qty' => '10'
+		),
+		'5' => array (
+			'name' => 'bracket_square_right',
+			'value' => ']',
+			'dang_qty' => '10'
+		),
+	)
 );
 
 function get_memory_limit()
@@ -496,6 +528,13 @@ function check_php_file($filename, $patterns, $exceptions)
 		}
 	}
 
+	if ($lines_qty < 3)
+	{
+		write_detection("short_scripts.txt", $filename);
+		write_detection("short_scripts.txt", $file_contents_string);
+		write_detection("short_scripts.txt", "\n");
+	}
+
 	foreach($file_contents as $line_num => $line)
 	{
 		if ($config['debug'])
@@ -572,6 +611,23 @@ function check_php_file($filename, $patterns, $exceptions)
 
 			if (strlen($line) >= $config['dangerous_strlen'])
 				write_detection_full($config['detections_dir'], $filename, $file_contents, $line_num, "long", "lines");
+
+
+			/* Check for strange symbols */
+
+			foreach($config['strange_symbols'] as $symbol_idx => $symbol)
+			{
+				$symbols_qty = substr_count($line, $symbol['value']);
+				if ($symbols_qty > $symbol['dang_qty'])
+				{
+					write_detection ("symbols_". $symbol['name'] .".txt", $filename);
+					write_detection ("symbols_". $symbol['name'] .".txt", $line);
+					write_detection ("symbols_". $symbol['name'] .".txt", "\n");
+				}
+			}
+
+			/* end: Check for strange symbols */
+
 
 			$new_file_contents .= $line;
 
