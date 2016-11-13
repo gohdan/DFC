@@ -124,15 +124,15 @@ function check_php_file($filename, $patterns, $exceptions)
 		{
 			if (0 == $line_num)
 			{
-				if (false !== strpos($line, "eval"))
+				if ( (false !== strpos($line, "eval")) || (false !== strpos($line, "sys_get_temp_dir")) )
 				{
 					$pos1 = strpos($line, "?><?");
 					$pos2 = strpos($line, "?> <?");
 
 					if (false !== $pos1)
-						$pos = $pos1;
+						$pos = $pos1 + 2;
 					else if (false !== $pos2)
-						$pos = $pos2;
+						$pos = $pos2 + 3;
 					else
 						$pos = 0;
 
@@ -143,7 +143,7 @@ function check_php_file($filename, $patterns, $exceptions)
 						$line_cut = substr($line, 0, 50) . " ... " . substr($line, -50, 50);
 						write_detection ("head_injects.txt", $line_cut);
 
-						$line = substr($line, $pos + 2);
+						$line = substr($line, $pos);
 
 						write_detection ("head_injects.txt", "\n");
 					}
