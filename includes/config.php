@@ -56,7 +56,12 @@ $config = array(
 		'jpg',
 		'png',
 		'gif',
-		'bmp'
+		'bmp',
+		'html',
+		'css',
+		'po',
+		'mo',
+		'ini'
 	)
 );
 
