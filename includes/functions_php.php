@@ -120,6 +120,20 @@ function check_php_file($filename, $patterns, $exceptions)
 			}
 		}
 
+		// Search for cookie code execution
+		if (!$if_exclude_line && ($line_num < 10) && (substr_count($line, "COOKIE") > 2))
+		{
+			if ($config['debug'])
+				echo ("Cookie code execution\n");
+			write_detection ("cookie_execution.txt", $filename);
+			if (strlen($line) < 100)
+				$line_cut = $line;
+			else
+				$line_cut = ($line_num + 1) . ": " . substr($line, 0, 50) . " ... " . substr($line, -50, 50);
+			write_detection ("cookie_execution.txt", $line_cut);
+			$if_exclude_line = 1;
+		}
+
 		if (!$if_exclude_line)
 		{
 			if (0 == $line_num)
