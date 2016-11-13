@@ -83,7 +83,24 @@ function check_php_file($filename, $patterns, $exceptions)
 
 		$if_exclude_line = 0;
 
-		if (strlen($line) >= $config['dangerous_strlen'])
+		// Search for "cache start" pattern
+		if (isset($if_exclude_block) && ("1" == $if_exclude_block))
+		{
+			$if_exclude_line = 1;
+			if (false !== strpos($line, "//###=CACHE END=###"))
+				$if_exclude_block = 0;
+		}
+		if (false !== strpos($line, "//###=CACHE START=###"))
+		{
+			if ($config['debug'])
+				echo ("'cache start' block, skipping\n");
+			write_detection ("cache_masquerade.txt", $filename);
+			$if_exclude_line = 1;
+			$if_exclude_block = 1;
+		}
+
+		// Search of long lines and base64 blocks
+		if (!$if_exclude_line && (strlen($line) >= $config['dangerous_strlen']))
 		{
 			if ($config['debug'])
 				echo ("dangerous strlen\n");
