@@ -1,6 +1,7 @@
 <?php
 
-include_once("functions.php");
+include_once("includes/config.php");
+include_once("includes/functions.php");
 
 if ($argc < 2)
 	echo ("Please give suspictions file name\n");
