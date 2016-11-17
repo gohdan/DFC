@@ -11,17 +11,18 @@ function check_htaccess_files($files)
 
 		$file_contents_string = file_get_contents($filename);
 
-		add_hash($file_contents_string, $filename);
-
-		$pos = stripos($file_contents_string, "AddHandler");
-		if (false !== $pos)
+		if (!check_hash($file_contents_string, $filename))
 		{
-			$begin = $pos - 20;
-			if ($begin < 0)
-				$begin = 0;
-			write_detection ("htaccess_addhandler.txt", $filename);
-			write_detection ("htaccess_addhandler.txt", substr($file_contents_string, $begin, 20));
-			write_detection ("htaccess_addhandler.txt", "\n");
+			$pos = stripos($file_contents_string, "AddHandler");
+			if (false !== $pos)
+			{
+				$begin = $pos - 20;
+				if ($begin < 0)
+					$begin = 0;
+				write_detection ("htaccess_addhandler.txt", $filename);
+				write_detection ("htaccess_addhandler.txt", substr($file_contents_string, $begin, 20));
+				write_detection ("htaccess_addhandler.txt", "\n");
+			}
 		}
 	}
 	return 1;

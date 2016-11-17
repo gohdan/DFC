@@ -249,15 +249,49 @@ function remove_last_line($filename)
 	return 1;
 }
 
-function add_hash($file_contents_string, $filename)
+function check_hash($file_contents_string, $filename)
 {
 	global $config;
 	global $hashes;
 
 	$hash = md5(trim($file_contents_string));
-	$hashes[$hash][] = $filename;
+
+	$known_hashes_file = "";
+	$path_arr = explode($config['slash'], $filename);
+	foreach($path_arr as $k => $v)
+	{
+		if (0 == $k)
+			$v = "known_files/hashes";
+
+		$known_hashes_file .= $v.$config['slash'];
+	}
+	$known_hashes_file = rtrim($known_hashes_file, "/");
+
+	if (file_exists($known_hashes_file))
+	{
+		$known_hashes = parse_ini_file($known_hashes_file);
+
+		if (in_array($hash, $known_hashes))
+		{
+			$result = 1;
+			$version = array_search($hash, $known_hashes);
+			write_detection("files_known.txt", $filename." ".$version);
+		}
+		else
+		{
+			$result = 0;
+			write_detection("files_changed.txt", $filename);
+			$hashes[$hash][] = $filename;
+		}
+	}
+	else
+	{
+		$result = 0;
+		write_detection("files_unknown.txt", $filename);
+		$hashes[$hash][] = $filename;
+	}
 	
-	return 1;
+	return $result;
 }
 
 function check_php_presence($file_contents_string, $filetype, $filename)

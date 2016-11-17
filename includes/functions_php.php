@@ -28,24 +28,21 @@ function check_php_files($files)
 	foreach($files as $file_idx => $filename)
 	{
 		echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
-		check_php_file($filename, $patterns, $exceptions);
+
+		$file_contents_string = file_get_contents($filename);
+		if (!check_hash($file_contents_string, $filename))
+			check_php_file($filename, $file_contents_string, $patterns, $exceptions);
 	}
 	return 1;
 }
 
-function check_php_file($filename, $patterns, $exceptions)
+function check_php_file($filename, $file_contents_string, $patterns, $exceptions)
 {
 	global $config;
-	global $hashes;
 
-	$file_contents = file($filename);
-	$file_contents_string = file_get_contents($filename);
 	$new_file_contents = "";
-
-	add_hash($file_contents_string, $filename);
-
+	$file_contents = file($filename);
 	$lines_qty = count($file_contents);
-
 
 	if (($lines_qty == 1) || (($lines_qty == 2) && ($config['php_close_tag'] == $file_contents[1])))
 	{

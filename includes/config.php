@@ -61,7 +61,11 @@ $config = array(
 		'css',
 		'po',
 		'mo',
-		'ini'
+		'ini',
+		'txt',
+		'md',
+		'xml',
+		'sql'
 	)
 );
 

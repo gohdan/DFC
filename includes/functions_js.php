@@ -9,35 +9,40 @@ function check_js_files($files)
 	{
 		echo (($file_idx + 1)." / ". $files_qty ." ".$filename."\n");
 
+		$file_contents_string = file_get_contents($filename);
+		$if_check_file = !check_hash($file_contents_string, $filename);
+		echo ("if_check_file: ".$if_check_file."\n");
+
+
 		if (isset($check_pattern))
 		{
 			switch($check_pattern)
 			{
 				default:
-					check_js_file($filename);
+					echo ("default\n");
+					if ($if_check_file)
+						check_js_file($filename, $file_contents_string);
 				break;
 
 				case "remove_last_line":
+					echo ("remove_last_line\n");
 					remove_last_line($filename);
 				break;
 			}
 		}
 		else
-			check_js_file($filename);
+			if ($if_check_file)
+				check_js_file($filename, $file_contents_string);
 	}
 	return 1;
 }
 
-function check_js_file($filename)
+function check_js_file($filename, $file_contents_string)
 {
 	global $config;
-	global $hashes;
 
 	$file_contents = file($filename);
-	$file_contents_string = file_get_contents($filename);
 	$new_file_contents = "";
-
-	add_hash($file_contents_string, $filename);
 
 	$dangerous_functions = array(
 		'charAt',

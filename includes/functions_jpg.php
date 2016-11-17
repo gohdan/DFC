@@ -11,7 +11,7 @@ function check_jpg_files($files)
 
 		$file_contents_string = file_get_contents($filename);
 
-		add_hash($file_contents_string, $filename);
+		check_hash($file_contents_string, $filename);
 		check_php_presence($file_contents_string, "jpg", $filename);
 	}
 	return 1;
