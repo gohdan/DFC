@@ -11,21 +11,17 @@ function check_js_files($files)
 
 		$file_contents_string = file_get_contents($filename);
 		$if_check_file = !check_hash($file_contents_string, $filename);
-		echo ("if_check_file: ".$if_check_file."\n");
-
 
 		if (isset($check_pattern))
 		{
 			switch($check_pattern)
 			{
 				default:
-					echo ("default\n");
 					if ($if_check_file)
 						check_js_file($filename, $file_contents_string);
 				break;
 
 				case "remove_last_line":
-					echo ("remove_last_line\n");
 					remove_last_line($filename);
 				break;
 			}
