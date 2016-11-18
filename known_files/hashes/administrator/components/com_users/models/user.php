@@ -1,0 +1,1 @@
+Joomla 2.5.28 = 067438312ea6857f8dfbe2abd818eec4
