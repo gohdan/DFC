@@ -65,7 +65,8 @@ $config = array(
 		'txt',
 		'md',
 		'xml',
-		'sql'
+		'sql',
+		'tpl'
 	)
 );
 
