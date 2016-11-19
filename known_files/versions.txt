@@ -3,3 +3,4 @@ Joomla 2.5.28
 OpenCart 1.5.5.1
 
 Wordpress 4.5.3
+Wordpress 4.6.1

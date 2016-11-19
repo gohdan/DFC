@@ -1,1 +1,2 @@
 Wordpress 4.5.3 = 20e3a5ffa6638036d7212a0d1a42c909
+Wordpress 4.6.1 = 82e7b326f4c39e2dd31c827b409acb7f
