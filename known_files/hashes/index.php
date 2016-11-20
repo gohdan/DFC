@@ -6,3 +6,4 @@ OpenCart 1.5.6.1 = 24e526d59925c2d926cdfefa59c4f815
 OpenCart 1.5.6.2 = b56a37db5716311ffaa53dc5b3397157
 OpenCart 1.5.6.3 = 7b4e0f313727361cae1ae129b6f4a00a
 OpenCart 1.5.6.4 = e4591859c59c2115eddb3958f1a67a0f
+Joomla 1.5.23 = 6ecdc00db13324cdb29feee417174e9b

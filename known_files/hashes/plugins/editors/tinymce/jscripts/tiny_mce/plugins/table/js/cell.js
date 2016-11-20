@@ -1,0 +1,1 @@
+Joomla 1.5.23 = 66d7a8b2ec64fa0686edc793464ad976
