@@ -1,1 +1,2 @@
 Joomla 2.5.28 = 70ec4a3d2e02eacc1362e115feddb540
+Joomla 2.5.7 = 8d327a8d78e4b518f6476b529e8c47e9
