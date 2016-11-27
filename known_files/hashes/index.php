@@ -10,3 +10,4 @@ Joomla 1.5.23 = 6ecdc00db13324cdb29feee417174e9b
 Bitrix 16.5 Business Demo = af748b4b1846178e8b337f2d4c10ea0b
 Joomla 2.5.7 = 547601b63284668b7cc2af1fc301e283
 ModX Revolution 2.5.0 = b1b5a0839b15fde72d0532c45e5187f5
+ModX Revolution 2.3.3 = 3edfac4fb9cb7489d45ee972262b0444
