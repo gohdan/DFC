@@ -9,3 +9,4 @@ OpenCart 1.5.6.4 = e4591859c59c2115eddb3958f1a67a0f
 Joomla 1.5.23 = 6ecdc00db13324cdb29feee417174e9b
 Bitrix 16.5 Business Demo = af748b4b1846178e8b337f2d4c10ea0b
 Joomla 2.5.7 = 547601b63284668b7cc2af1fc301e283
+ModX Revolution 2.5.0 = b1b5a0839b15fde72d0532c45e5187f5
