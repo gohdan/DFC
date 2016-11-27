@@ -5,6 +5,7 @@ Joomla 1.5.26
 Joomla 2.5.7
 Joomla 2.5.28
 
+ModX Revolution 2.3.2
 ModX Revolution 2.3.3
 ModX Revolution 2.5.0
 
