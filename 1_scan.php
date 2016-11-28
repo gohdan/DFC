@@ -4,24 +4,24 @@ include_once("includes/config.php");
 include_once("includes/functions.php");
 
 if (isset($argv[1]))
-	$scan_target = $argv[1];
+	$config['scan_target'] = $argv[1];
 else
 {
 	echo ("Please give file or directory to scan\n");
 	exit;
 }
 
-switch(filetype($scan_target))
+switch(filetype($config['scan_target']))
 {
 	default: break;
 
 	case "file":
-		$files = array($scan_target);
+		$files = array($config['scan_target']);
 	break;
 
 	case "dir":
 		echo ("building files list...\n");
-		$files = get_files_list($scan_target, array());
+		$files = get_files_list($config['scan_target'], array());
 	break;
 }
 

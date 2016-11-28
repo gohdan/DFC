@@ -256,16 +256,7 @@ function check_hash($file_contents_string, $filename)
 
 	$hash = md5(trim($file_contents_string));
 
-	$known_hashes_file = "";
-	$path_arr = explode($config['slash'], $filename);
-	foreach($path_arr as $k => $v)
-	{
-		if (0 == $k)
-			$v = "known_files/hashes";
-
-		$known_hashes_file .= $v.$config['slash'];
-	}
-	$known_hashes_file = rtrim($known_hashes_file, "/");
+	$known_hashes_file = str_replace($config['scan_target'], "known_files/hashes/", $filename);
 
 	if (file_exists($known_hashes_file))
 	{
