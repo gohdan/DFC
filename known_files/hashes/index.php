@@ -12,3 +12,4 @@ Joomla 2.5.7 = 547601b63284668b7cc2af1fc301e283
 ModX Revolution 2.5.0 = b1b5a0839b15fde72d0532c45e5187f5
 ModX Revolution 2.3.3 = 3edfac4fb9cb7489d45ee972262b0444
 ModX Revolution 2.3.2 = 58bf23bf6c62011725984d0585b7229d
+Joomla 3.3.3 = a57f327725dfb6c2547887147e13a4dc
