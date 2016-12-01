@@ -66,7 +66,9 @@ $config = array(
 		'md',
 		'xml',
 		'sql',
-		'tpl'
+		'tpl',
+		'suspected',
+		'vehicle'
 	)
 );
 
