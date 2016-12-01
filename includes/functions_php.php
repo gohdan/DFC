@@ -36,6 +36,41 @@ function check_php_files($files)
 	return 1;
 }
 
+function detect_oneliner($filename, $file_contents)
+{
+	global $config;
+
+	$result = 0;
+
+	$lines_qty = count($file_contents);
+
+	if ( ($lines_qty == 1) ||
+		( ($lines_qty == 2) && ($config['php_close_tag'] == $file_contents[1]) ) ||
+		( ($lines_qty == 3) && ("" == trim($file_contents[1])) && ($config['php_close_tag'] == $file_contents[2]) )
+		)
+	{
+		$line = $file_contents[0];
+		if ( (false !== strpos($line, "eval")) || (false !== strpos($line, "sys_get_temp_dir")) )
+		{
+			$result = 1;
+			write_detection ("oneliners.txt", $filename);
+			if (strlen($line) <= 100)
+				$line_cut = $line;
+			else
+				$line_cut = substr($line, 0, 50) . " ... " . substr($line, -50, 50);
+			write_detection ("oneliners.txt", $line_cut);
+			backup_infected($filename);
+
+			write_file_del($filename);
+			unlink($filename);
+
+			write_detection ("oneliners.txt", "\n");
+		}
+	}
+
+	return ($result);
+}
+
 function check_php_file($filename, $file_contents_string, $patterns, $exceptions)
 {
 	global $config;
@@ -44,29 +79,15 @@ function check_php_file($filename, $file_contents_string, $patterns, $exceptions
 	$file_contents = file($filename);
 	$lines_qty = count($file_contents);
 
-	if (($lines_qty == 1) || (($lines_qty == 2) && ($config['php_close_tag'] == $file_contents[1])))
+	if (detect_oneliner($filename, $file_contents))
 	{
-		$line = $file_contents[0];
-		if (false !== strpos($line, "eval"))
-		{
-			write_detection ("oneliners.txt", $filename);
-			$line_cut = substr($line, 0, 50) . " ... " . substr($line, -50, 50);
-			write_detection ("oneliners.txt", $line_cut);
-			backup_infected($filename);
-
-			write_file_del($filename);
-			unlink($filename);
-
-			/* removing file contents to avoid further checking */
-			$file_contents = array();
-			$file_contents_string = "";
-			$new_file_contents = "";
-
-			write_detection ("oneliners.txt", "\n");
-		}
+		/* remove file contents to avoid further checking */
+		$file_contents = array();
+		$file_contents_string = "";
+		$new_file_contents = "";
 	}
 
-	if ($lines_qty < 3)
+	if ($lines_qty <= 3)
 	{
 		write_detection("short_scripts.txt", $filename);
 		write_detection("short_scripts.txt", $file_contents_string);
