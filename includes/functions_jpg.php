@@ -13,6 +13,7 @@ function check_jpg_files($files)
 
 		check_hash($file_contents_string, $filename);
 		check_php_presence($file_contents_string, "jpg", $filename);
+		check_eval_presence($file_contents_string, "jpg", $filename);
 	}
 	return 1;
 }

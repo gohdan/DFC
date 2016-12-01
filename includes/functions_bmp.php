@@ -14,6 +14,7 @@ function check_bmp_files($files)
 		check_hash($file_contents_string, $filename);
 
 		check_php_presence($file_contents_string, "bmp", $filename);
+		check_eval_presence($file_contents_string, "bmp", $filename);
 	}
 	return 1;
 }

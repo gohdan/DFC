@@ -301,5 +301,20 @@ function check_php_presence($file_contents_string, $filetype, $filename)
 	}
 }
 
+function check_eval_presence($file_contents_string, $filetype, $filename)
+{
+	global $config;
+
+	$pos = stripos($file_contents_string, "eval");
+	if (false !== $pos)
+	{
+		$begin = $pos - 10;
+		if ($begin < 0)
+			$begin = 0;
+		write_detection ("eval_in_".$filetype.".txt", $filename);
+		write_detection ("eval_in_".$filetype.".txt", substr($file_contents_string, $begin, 20));
+		write_detection ("eval_in_".$filetype.".txt", "\n");
+	}
+}
 
 ?>

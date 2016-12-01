@@ -13,6 +13,7 @@ function check_gif_files($files)
 
 		check_hash($file_contents_string, $filename);
 		check_php_presence($file_contents_string, "gif", $filename);
+		check_eval_presence($file_contents_string, "gif", $filename);
 	}
 	return 1;
 }
