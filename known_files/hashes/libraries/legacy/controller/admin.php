@@ -1,1 +1,2 @@
 Joomla 3.3.3 = fbfec7c189d366bba7343a5113296f3d
+Joomla 3.6.4 = b5dc4570fe5002d86061bf4fff4905d8

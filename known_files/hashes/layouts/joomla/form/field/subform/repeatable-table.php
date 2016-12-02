@@ -1,0 +1,1 @@
+Joomla 3.6.4 = 2ed0d44f544e28c820c61f8e947f9dd6
