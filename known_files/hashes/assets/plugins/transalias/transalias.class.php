@@ -1,0 +1,1 @@
+MODX Evolution 1.1 = a7741f6359cf872952d0036a01f984d3
