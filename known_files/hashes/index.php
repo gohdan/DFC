@@ -16,3 +16,4 @@ Joomla 3.3.3 = a57f327725dfb6c2547887147e13a4dc
 Joomla 3.6.4 = 1783a5df1cd0ba0e5f3634ebef4d349d
 Joomla 3.2.1 = 59fa11be71e05b1c92e7fc32311e9197
 MODX Evolution 1.1 = 657db3d7274dbb84c80d4aac08a75417
+MODX Evolution 1.0.15 = c6f73908b7b0a58acfe95b0f844d134e
