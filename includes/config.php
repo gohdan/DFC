@@ -50,8 +50,9 @@ $config = array(
 		),
 	),
 	'filetypes' => array(
-		'php',
 		'htaccess',
+		'htm',
+		'php',
 		'js',
 		'jpg',
 		'png',
