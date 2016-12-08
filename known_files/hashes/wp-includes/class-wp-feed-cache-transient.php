@@ -1,0 +1,1 @@
+Wordpress 4.7 = 6b2522490e46286ed37e12704d5c95eb
