@@ -1,1 +1,2 @@
 Joomla 2.5.7 = df0efb1df295efc80b72bb0fa729561f
+Joomla 2.5.0 = 33bfea03451e4485611a4488a6873327

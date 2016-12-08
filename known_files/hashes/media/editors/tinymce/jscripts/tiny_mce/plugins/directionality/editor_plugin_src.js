@@ -1,0 +1,1 @@
+Joomla 2.5.0 = 7a8992f2005bd63d97c151edb2d67ce9
