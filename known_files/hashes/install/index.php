@@ -1,2 +1,3 @@
 OpenCart 1.5.5.1 = d261c1e8a373627cdec44807ac4ee2f5
 MODX Evolution 1.1 = 63c274a4f3369a9f8e428208314ea701
+MODX Evolution 1.0.5 = d3d693f8425c29654b9e54fc220420fd

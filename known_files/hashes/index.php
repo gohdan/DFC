@@ -18,3 +18,4 @@ Joomla 3.2.1 = 59fa11be71e05b1c92e7fc32311e9197
 MODX Evolution 1.1 = 657db3d7274dbb84c80d4aac08a75417
 MODX Evolution 1.0.15 = c6f73908b7b0a58acfe95b0f844d134e
 DataLife Engine 11.0 = afa74b05598b725eb68415e196dd1e29
+MODX Evolution 1.0.5 = 29298899a3141655e0d53efb9dce0713

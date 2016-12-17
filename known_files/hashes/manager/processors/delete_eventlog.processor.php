@@ -1,1 +1,2 @@
 MODX Evolution 1.1 = 8e5766d89adf34f431cbdf5e724d75a9
+MODX Evolution 1.0.5 = 05ae110a711b769b94e257c245b62d5f
