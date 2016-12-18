@@ -12,7 +12,7 @@ function check_png_files($files)
 		$file_contents_string = file_get_contents($filename);
 
 		check_hash($file_contents_string, $filename);
-		check_php_presence($file_contents_string, "other", $filename);
+		check_php_presence($file_contents_string, "png", $filename);
 		check_eval_presence($file_contents_string, "png", $filename);
 	}
 	return 1;
