@@ -86,8 +86,7 @@ function check_php_file($filename, $file_contents_string, $patterns, $exceptions
 		$file_contents_string = "";
 		$new_file_contents = "";
 	}
-
-	if ($lines_qty <= 3)
+	else if ($lines_qty <= 3)
 	{
 		write_detection("short_scripts.txt", $filename);
 		write_detection("short_scripts.txt", $file_contents_string);
