@@ -48,7 +48,7 @@ function get_files_list ($dir, $files)
 		print_r($files);
 	}
 	$curdir = opendir($dir);
- 	while(($file = readdir($curdir)))
+ 	while (false !== ($file = readdir($curdir)))
 	{
 		if ($config['debug'])
 			echo ("listing ".$file."\n");
