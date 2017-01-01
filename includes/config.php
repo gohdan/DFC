@@ -49,6 +49,12 @@ $config = array(
 			'dang_qty' => '10'
 		),
 	),
+	'inject_strings' => array(
+		'eval',
+		'sys_get_temp_dir',
+		'ass"."ert',
+		'_PO"."ST'
+	),
 	'filetypes' => array(
 		'htaccess',
 		'htm',

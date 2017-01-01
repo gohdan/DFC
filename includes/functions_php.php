@@ -71,6 +71,43 @@ function detect_oneliner($filename, $file_contents)
 	return ($result);
 }
 
+function detect_head_inject($filename, $line)
+{
+	global $config;
+
+	foreach($config['inject_strings'] as $inject_string)
+	{
+		if (false !== strpos($line, $inject_string))
+		{
+			$pos1 = strpos($line, "?><?");
+			$pos2 = strpos($line, "?> <?");
+
+			if (false !== $pos1)
+				$pos = $pos1 + 2;
+			else if (false !== $pos2)
+				$pos = $pos2 + 3;
+			else
+				$pos = strlen($line);
+
+			if ($pos)
+			{
+				write_detection ("head_injects.txt", $filename);
+
+				if (strlen($line) > 100)	
+					$line_cut = substr($line, 0, 50) . " ... " . substr($line, -50, 50);
+				else
+					$line_cut = $line;
+				write_detection ("head_injects.txt", $line_cut);
+
+				$line = substr($line, $pos);
+
+				write_detection ("head_injects.txt", "\n");
+			}
+		}
+	}
+	return $line;
+}
+
 function check_php_file($filename, $file_contents_string, $patterns, $exceptions)
 {
 	global $config;
@@ -124,7 +161,7 @@ function check_php_file($filename, $file_contents_string, $patterns, $exceptions
 
 			/* Search of big base64 blocks */
 			$pattern="/([a-zA-Z0-9\\\=\/+]+)/i";
-	        if (preg_match_all($pattern, $line, $matches))
+		        if (preg_match_all($pattern, $line, $matches))
 			{
 				if ($config['debug'])
 					echo ("have base64 block pattern match\n");
@@ -171,32 +208,7 @@ function check_php_file($filename, $file_contents_string, $patterns, $exceptions
 		if (!$if_exclude_line)
 		{
 			if (0 == $line_num)
-			{
-				if ( (false !== strpos($line, "eval")) || (false !== strpos($line, "sys_get_temp_dir")) )
-				{
-					$pos1 = strpos($line, "?><?");
-					$pos2 = strpos($line, "?> <?");
-
-					if (false !== $pos1)
-						$pos = $pos1 + 2;
-					else if (false !== $pos2)
-						$pos = $pos2 + 3;
-					else
-						$pos = 0;
-
-					if ($pos)
-					{
-						write_detection ("head_injects.txt", $filename);
-
-						$line_cut = substr($line, 0, 50) . " ... " . substr($line, -50, 50);
-						write_detection ("head_injects.txt", $line_cut);
-
-						$line = substr($line, $pos);
-
-						write_detection ("head_injects.txt", "\n");
-					}
-				}
-			}
+				$line = detect_head_inject($filename, $line);
 
 			if (strlen($line) >= $config['dangerous_strlen'])
 				write_detection_full($config['detections_dir'], $filename, $file_contents, $line_num, "long", "lines");
