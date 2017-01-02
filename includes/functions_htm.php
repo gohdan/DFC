@@ -13,6 +13,7 @@ function check_htm_files($files)
 
 		check_hash($file_contents_string, $filename);
 		check_php_presence($file_contents_string, "htm", $filename);
+		check_refresh_presence($file_contents_string, "htm", $filename);
 	}
 	return 1;
 }

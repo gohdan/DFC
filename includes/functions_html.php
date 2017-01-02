@@ -13,6 +13,7 @@ function check_html_files($files)
 
 		check_hash($file_contents_string, $filename);
 		check_php_presence($file_contents_string, "html", $filename);
+		check_refresh_presence($file_contents_string, "html", $filename);
 	}
 	return 1;
 }
