@@ -53,7 +53,9 @@ $config = array(
 		'eval',
 		'sys_get_temp_dir',
 		'ass"."ert',
-		'_PO"."ST'
+		'_PO"."ST',
+		'preg_replace',
+		'str_rot13'
 	),
 	'filetypes' => array(
 		'htaccess',
