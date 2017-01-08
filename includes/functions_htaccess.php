@@ -16,12 +16,23 @@ function check_htaccess_files($files)
 			$pos = stripos($file_contents_string, "AddHandler");
 			if (false !== $pos)
 			{
-				$begin = $pos - 20;
+				$begin = $pos - 50;
 				if ($begin < 0)
 					$begin = 0;
 				write_detection ("htaccess_addhandler.txt", $filename);
-				write_detection ("htaccess_addhandler.txt", substr($file_contents_string, $begin, 20));
+				write_detection ("htaccess_addhandler.txt", substr($file_contents_string, $begin, 100));
 				write_detection ("htaccess_addhandler.txt", "\n");
+			}
+
+			$pos = stripos($file_contents_string, "AddType");
+			if (false !== $pos)
+			{
+				$begin = $pos - 50;
+				if ($begin < 0)
+					$begin = 0;
+				write_detection ("htaccess_addtype.txt", $filename);
+				write_detection ("htaccess_addtype.txt", substr($file_contents_string, $begin, 100));
+				write_detection ("htaccess_addtype.txt", "\n");
 			}
 		}
 	}
