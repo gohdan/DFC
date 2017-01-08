@@ -143,6 +143,26 @@ function write_detection($filename, $info)
 	return 1;
 }
 
+function write_exception($filename, $info)
+{
+	global $config;
+
+	if (!file_exists($config['detections_dir']))
+		mkdir($config['detections_dir'], 0775, 1);
+
+	$exceptions_dir = $config['detections_dir'].$config['slash'].$config['exceptions_dir'];
+
+	if (!file_exists($exceptions_dir))
+		mkdir($exceptions_dir, 0775, 1);
+
+	$det_file_name = $exceptions_dir.$config['slash'].$filename;
+
+	file_put_contents($det_file_name, $info."\n", FILE_APPEND);
+
+	return 1;
+}
+
+
 function write_file_del($filename)
 {
 	global $config;
@@ -322,16 +342,35 @@ function check_eval_presence($file_contents_string, $filetype, $filename)
 {
 	global $config;
 
+	$result = 0;
+
 	$pos = stripos($file_contents_string, "eval");
 	if (false !== $pos)
 	{
 		$begin = $pos - 10;
 		if ($begin < 0)
 			$begin = 0;
-		write_detection ("eval_in_".$filetype.".txt", $filename);
-		write_detection ("eval_in_".$filetype.".txt", substr($file_contents_string, $begin, 20));
-		write_detection ("eval_in_".$filetype.".txt", "\n");
+
+		$nextsymbol = $file_contents_string[$pos + 4];
+
+		if (("(" == $nextsymbol) || (" " == $nextsymbol))
+		{
+			write_detection ("eval_in_".$filetype.".txt", $filename);
+			write_detection ("eval_in_".$filetype.".txt", substr($file_contents_string, $begin, 20));
+			write_detection ("eval_in_".$filetype.".txt", "\n");
+			$result = 1;
+		}
+		else
+		{
+			write_exception ("eval_in_".$filetype.".txt", $filename);
+			write_exception ("eval_in_".$filetype.".txt", substr($file_contents_string, $begin, 20));
+			write_exception ("eval_in_".$filetype.".txt", "\n");
+			$result = 0;
+		}
+
 	}
+
+	return $result;
 }
 
 ?>
