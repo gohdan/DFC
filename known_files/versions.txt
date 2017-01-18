@@ -2,6 +2,8 @@ Bitrix 16.5 Business Demo
 
 DataLife Engine 11.0
 
+Drupal 7.17
+
 Joomla 1.5.23
 Joomla 1.5.26
 Joomla 2.5.0
