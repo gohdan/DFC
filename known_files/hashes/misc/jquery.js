@@ -1,1 +1,2 @@
 Drupal 7.17 = 67c5aa793a87ace74cc929ae9ac44020
+Drupal 6.28 = da5e9c9e8488e6b091fc3eb83e367d03

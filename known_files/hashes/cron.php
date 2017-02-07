@@ -1,2 +1,3 @@
 DataLife Engine 11.0 = 010f842df9651a13fbf20fee9c7d1bb5
 Drupal 7.17 = 283903b9f818016a6a0426280857b6c5
+Drupal 6.28 = a0b84fd41e51468cdd59deae0f2dc535
