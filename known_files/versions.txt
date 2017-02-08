@@ -45,3 +45,4 @@ Wordpress 4.6.1
 Wordpress 4.6.2
 Wordpress 4.7
 Wordpress 4.7.1
+Wordpress 4.7.2
