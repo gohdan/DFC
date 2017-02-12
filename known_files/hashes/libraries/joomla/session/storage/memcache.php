@@ -7,3 +7,4 @@ Joomla 3.2.1 = 2c7f16e17dbd765364ad57d44894f854
 Joomla 2.5.0 = 3c46eaaaba6c80739618cbb69a5ce40a
 Joomla 3.6.2 = 1df73fcc4d92f7d3f33dcb68cb249741
 Joomla 3.2.3 = 95ad613d849e64a20d5a6f2da545bf99
+Joomla 1.5.11 = ab5c37a5bb143f274d2e22d0aae349fa

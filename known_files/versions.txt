@@ -5,6 +5,7 @@ DataLife Engine 11.0
 Drupal 6.28
 Drupal 7.17
 
+Joomla 1.5.11
 Joomla 1.5.23
 Joomla 1.5.25
 Joomla 1.5.26

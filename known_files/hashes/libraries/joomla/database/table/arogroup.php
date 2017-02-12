@@ -1,1 +1,2 @@
 Joomla 1.5.23 = 9a0253df64bef15a4352154d61bf1e65
+Joomla 1.5.11 = 4aee97609c666ca17c97a4ce3961ae4b
