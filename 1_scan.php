@@ -54,8 +54,18 @@ foreach($files as $file_idx => $filename)
 	else
 	{
 		$pinfo = pathinfo($filename);
-		if (isset($pinfo['extension']) && in_array($pinfo['extension'], $config['filetypes']))
-			$files_by_group[$pinfo['extension']][] = $filename;
+		if (isset($pinfo['extension'])) 
+		{
+			$if_has_group = 0;
+			foreach ($config['filetypes'] as $filetype_group => $filetypes)
+			{
+				if (in_array(strtolower($pinfo['extension']), $filetypes))
+					$files_by_group[$filetype_group][] = $filename;
+				$if_has_group = 1;
+			}
+			if (!$if_has_group)
+				$files_by_group['other'][] = $filename;
+		}
 		else
 			$files_by_group['other'][] = $filename;
 	}

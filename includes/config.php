@@ -58,37 +58,42 @@ $config = array(
 		'str_rot13'
 	),
 	'filetypes' => array(
-		/* php */
-		'php',
-		'vehicle',
-
-		/* images */
-		'jpg',
-		'png',
-		'gif',
-		'bmp',
-
-		/* html */
-		'htm',
-		'phtml',
-		'html',
-		'tpl',
-
-		/* txt */
-		'txt',
-		'md',
-
-		/* other */
-
-		'htaccess',
-		'js',
-		'css',
-		'po',
-		'mo',
-		'ini',
-		'xml',
-		'sql',
-		'suspected'
+		'php' => array(
+			'php',
+			'vehicle',
+			'tpl'
+		),
+		'images' => array(
+			'jpg',
+			'jpeg',
+			'png',
+			'gif',
+			'bmp'
+		),
+		'html' => array(
+			'html',
+			'htm',
+			'phtml'
+		),
+		'text' => array(
+			'txt',
+			'md',
+			'css',
+			'po',
+			'mo',
+			'ini',
+			'xml',
+			'sql'
+		),
+		'htaccess' => array(
+			'htaccess'
+		),
+		'js' => array(
+			'js'
+		),
+		'suspected' => array(
+			'suspected'
+		)
 	)
 );
 
