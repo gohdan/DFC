@@ -55,7 +55,8 @@ $config = array(
 		'ass"."ert',
 		'_PO"."ST',
 		'preg_replace',
-		'str_rot13'
+		'str_rot13',
+		'fopen'
 	),
 	'filetypes' => array(
 		'php' => array(
