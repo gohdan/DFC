@@ -1,2 +1,3 @@
 Wordpress 4.1.13 = fa9f09957ed6d30d5f0fe550793c9fa1
 Wordpress 3.8.16 = 569ec88884d9222246a1b90e4687dfc8
+Wordpress 4.2.13 = 34824fa6fdb80b80c8b34cfc152ca765
