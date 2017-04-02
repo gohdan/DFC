@@ -42,6 +42,7 @@ OpenCart 1.5.6.1
 OpenCart 1.5.6.2
 OpenCart 1.5.6.3
 OpenCart 1.5.6.4
+OpenCart 2.1.0.2
 
 Wordpress 3.5.2
 Wordpress 3.8.16

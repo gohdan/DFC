@@ -4,3 +4,4 @@ Wordpress 3.8.16 = 89add2e4b36dac10a045f78b37081ba9
 Wordpress 4.6.2 = 03e4106f16f5f91a92293eff1295ac5b
 Wordpress 3.5.2 = a862c1c2fb81f7aa83ed6b5256aec0d2
 Wordpress 4.2.13 = 30eb9bcaeb06daa293b8b35062e1e206
+OpenCart 2.1.0.2 = b31f269b70b8a0ad2959c81ce9e2ec4d
