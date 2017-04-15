@@ -1,1 +1,2 @@
 ModX Revolution 2.3.1 = 62318c59ad2061520711040061da2fc3
+MODX Revolution 2.2.8 = 34dd051188907febce39c97d64b5be5c

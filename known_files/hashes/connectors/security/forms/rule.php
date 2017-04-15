@@ -1,0 +1,1 @@
+MODX Revolution 2.2.8 = da0850d080e882ae2c0182f3e80207a2
