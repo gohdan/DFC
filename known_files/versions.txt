@@ -7,6 +7,7 @@ Drupal 7.17
 Drupal 7.35
 
 Joomla 1.5.11
+Joomla 1.5.22
 Joomla 1.5.23
 Joomla 1.5.25
 Joomla 1.5.26
