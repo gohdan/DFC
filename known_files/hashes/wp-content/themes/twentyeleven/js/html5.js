@@ -1,1 +1,2 @@
 Wordpress 3.5.2 = 8494a27ba3a5e34c32718e0a58995bf5
+Wordpress 3.4.2 = 6f69fefab008b5ac52914973f1e644d6

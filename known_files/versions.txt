@@ -49,6 +49,7 @@ OpenCart 2.1.0.2
 
 phpBB 3.0.14
 
+Wordpress 3.4.2
 Wordpress 3.5.2
 Wordpress 3.8.16
 Wordpress 4.1.1
