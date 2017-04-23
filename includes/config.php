@@ -64,6 +64,9 @@ $config = array(
 			'vehicle',
 			'tpl'
 		),
+		'perl' => array(
+			'pl'
+		),
 		'images' => array(
 			'jpg',
 			'jpeg',
