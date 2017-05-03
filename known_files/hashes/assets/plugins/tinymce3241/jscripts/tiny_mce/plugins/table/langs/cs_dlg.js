@@ -1,0 +1,1 @@
+MODX Evolution 1.0.2 = 340e8ab810bc07c54ce9d80b4940536e
