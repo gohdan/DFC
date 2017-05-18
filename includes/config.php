@@ -62,7 +62,8 @@ $config = array(
 		'php' => array(
 			'php',
 			'vehicle',
-			'tpl'
+			'tpl',
+			'inc'
 		),
 		'perl' => array(
 			'pl'
