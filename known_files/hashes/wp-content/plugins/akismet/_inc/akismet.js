@@ -5,3 +5,4 @@ Wordpress 4.7.3 = 2c3de6b42e4704d8e6916cc5ade9bbc2
 Wordpress 4.5.2 = bcc3679d99c6b32eaec0cacc1edac7d8
 Wordpress 4.1.1 = 9d1d3a9956589975d0c03a6dbde08c0a
 Wordpress 4.0 = 7f6143a9333a9b0e171a7fc706064842
+Wordpress 4.7.5 = d83c7755c1e626578a6732628ada8571
