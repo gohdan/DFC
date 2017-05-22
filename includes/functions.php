@@ -309,7 +309,7 @@ function check_php_presence($file_contents_string, $filetype, $filename)
 {
 	global $config;
 
-	$pos = stripos($file_contents_string, "php");
+	$pos = stripos($file_contents_string, "<?php");
 	if (false !== $pos)
 	{
 		$begin = $pos - 10;
