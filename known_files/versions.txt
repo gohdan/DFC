@@ -22,6 +22,7 @@ Joomla 3.2.7
 Joomla 3.3.0
 Joomla 3.3.3
 Joomla 3.4.8
+Joomla 3.5.1
 Joomla 3.6.2
 Joomla 3.6.3
 Joomla 3.6.4
