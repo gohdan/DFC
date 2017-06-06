@@ -1,0 +1,1 @@
+HostCMS 6.7 = 58a35a5cbcd3e0c149443a20e0d1272e
