@@ -1,0 +1,1 @@
+Joomla 3.7.0 = 186b69a9877b8dea7be6d47f14a5e999
