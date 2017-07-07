@@ -60,6 +60,7 @@ phpBB 3.0.14
 UMI.CMS 15
 
 Wordpress 3.4.2
+Wordpress 3.5.1
 Wordpress 3.5.2
 Wordpress 3.8.16
 Wordpress 4.0
