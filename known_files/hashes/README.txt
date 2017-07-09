@@ -12,3 +12,4 @@ Drupal 7.35 = 83ce693f2b4d4d379f0c74dd8e7bb4fe
 Joomla 3.1.4 = 1e64ad556cc09503aebd7dd97003f20f
 Joomla 3.5.1 = f51553b5b0d775e1c9c6e1de977f2eec
 Joomla 3.7.0 = f6fb0619004e741fc8bf8b284a37cfe4
+Joomla 2.5.9 = aaa07412a3c418017ac23d6649eb4124
