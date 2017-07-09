@@ -16,6 +16,7 @@ Joomla 1.5.25
 Joomla 1.5.26
 Joomla 2.5.0
 Joomla 2.5.7
+Joomla 2.5.24
 Joomla 2.5.28
 Joomla 3.1.4
 Joomla 3.2.1
