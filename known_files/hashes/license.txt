@@ -7,3 +7,4 @@ Wordpress 4.2.13 = 30eb9bcaeb06daa293b8b35062e1e206
 OpenCart 2.1.0.2 = b31f269b70b8a0ad2959c81ce9e2ec4d
 Wordpress 4.4.2 = 1a697898a1285aff751e3a6ba3dc3dfd
 Wordpress 4.0 = b6b527ddff9583ec94f33189f6db38b4
+CodeIgniter 2.0.3 = 858e9dd259008840bd32e9f689842f14
