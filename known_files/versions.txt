@@ -80,6 +80,7 @@ Wordpress 4.4.9
 Wordpress 4.5.2
 Wordpress 4.5.3
 Wordpress 4.5.4
+Wordpress 4.5.9
 Wordpress 4.6.1
 Wordpress 4.6.2
 Wordpress 4.6.6
