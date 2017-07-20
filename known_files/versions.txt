@@ -38,6 +38,7 @@ Joomla 3.6.5
 Joomla 3.7.0
 Joomla 3.7.1
 Joomla 3.7.2
+Joomla 3.7.3
 
 MODX Evolution 1.0.2
 MODX Evolution 1.0.5
