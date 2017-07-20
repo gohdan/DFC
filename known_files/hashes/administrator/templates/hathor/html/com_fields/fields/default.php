@@ -1,1 +1,2 @@
 Joomla 3.7.0 = 67c90f0a3169d39fa8b80c1f9e87c984
+Joomla 3.7.1 = 2684f4092e8e6221fcb970c5cfc5df86
