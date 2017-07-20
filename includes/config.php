@@ -63,7 +63,8 @@ $config = array(
 			'php',
 			'vehicle',
 			'tpl',
-			'inc'
+			'inc',
+			'phtml'
 		),
 		'perl' => array(
 			'pl'
@@ -77,8 +78,7 @@ $config = array(
 		),
 		'html' => array(
 			'html',
-			'htm',
-			'phtml'
+			'htm'
 		),
 		'text' => array(
 			'txt',
