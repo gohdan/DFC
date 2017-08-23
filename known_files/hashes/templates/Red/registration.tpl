@@ -1,1 +1,2 @@
 DataLife Engine 11.0 = baf4c5989b165031d2f7d55b10bc9779
+DataLife Engine 11.2 = 86f571645d47288fc9447df4b2259b28

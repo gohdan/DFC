@@ -3,6 +3,8 @@ Bitrix 16.5 Business Demo
 CodeIgniter 2.0.3
 
 DataLife Engine 11.0
+DataLife Engine 11.2
+DataLife Engine 11.3
 
 Drupal 6.28
 Drupal 7.17
