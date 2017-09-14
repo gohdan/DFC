@@ -61,10 +61,20 @@ $config = array(
 	'filetypes' => array(
 		'php' => array(
 			'php',
-			'vehicle',
 			'tpl',
 			'inc',
-			'phtml'
+			'phtml',
+
+			// MODX-specific:
+			'vehicle',
+
+			// Drupal-specific:
+			'module',
+			'test',
+			'install',
+			'cif',
+			'engine',
+			'profile'
 		),
 		'perl' => array(
 			'pl'
