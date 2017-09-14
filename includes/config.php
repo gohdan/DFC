@@ -77,7 +77,8 @@ $config = array(
 			'profile'
 		),
 		'perl' => array(
-			'pl'
+			'pl',
+			'pm'
 		),
 		'images' => array(
 			'jpg',
