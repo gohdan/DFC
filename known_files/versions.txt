@@ -11,6 +11,7 @@ Drupal 7.17
 Drupal 7.24
 Drupal 7.35
 Drupal 7.41
+Drupal 7.54
 
 HostCMS 6.7
 

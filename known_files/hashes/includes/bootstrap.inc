@@ -3,3 +3,4 @@ Drupal 6.28 = bdd284bda07dcefc110d132fd5378116
 Drupal 7.35 = 747c110edb458c20a49a2b8901c3dbc5
 Drupal 7.41 = f6c2b35e478bc1d7bed51738e2e984aa
 Drupal 7.24 = c8fa19b94a00f075d495ef0a4d60c07f
+Drupal 7.54 = c98c8b0d2b1d8e93dc2221689d8e518d
