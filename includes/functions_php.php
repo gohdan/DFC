@@ -281,39 +281,58 @@ function check_exception($line, $pos1, $pos2, $pattern, $exceptions)
 		{
 			if ($config['debug'])
 				echo ("exception: ".$exception['name']."\n");
-			$exc = strtolower($exception['value']);
-			$val = strtolower($pattern['value']);
+			
+			$exc_array = array();
+			$exc_arr = explode(",", $exception['value']);
+			foreach($exc_arr as $exc_sub)
+				$exc_array[] = strtolower(trim($exc_sub, "'"));
 
 			if ($config['debug'])
+				print_r($exc_array);
+
+			foreach($exc_array as $exc)
 			{
-				echo ("exc: ".$exc."\n");
-				echo ("val: ".$val."\n");
+				$val = strtolower($pattern['value']);
+
+				if ($config['debug'])
+				{
+					echo ("exc: ".$exc."\n");
+					echo ("val: ".$val."\n");
+				}
+
+				$exc_pos1 = stripos($exc, $val);
+				$exc_pos2 = mb_stripos($exc, $val);
+
+				if (false !== $exc_pos1)
+					$exc_pos = $exc_pos1;
+				else if (false != $exc_pos2)
+					$exc_pos = $exc_pos2;
+				else
+					$exc_pos = 0;
+
+				if ($config['debug'])
+					echo ("pos: ".$pos."\n");
+
+				$exc_begin = $pos - $exc_pos;
+				$substring = substr($line, $exc_begin, strlen($exc));
+
+				if ($config['debug'])
+					echo ("substring: ".$substring."\n");
+
+				if (($exc == strtolower($substring)) || (mb_strtolower($exception['value']) == mb_strtolower($substring)))
+				{
+					if ($config['debug'])
+						echo ("it's exception\n\n");
+					$if_exception = 1;
+					break;
+				}
+				else
+					if ($config['debug'])
+						echo ("not exception\n\n");
 			}
 
-			$exc_pos1 = stripos($exc, $val);
-			$exc_pos2 = mb_stripos($exc, $val);
-
-			if (false !== $exc_pos1)
-				$exc_pos = $exc_pos1;
-			else if (false != $exc_pos2)
-				$exc_pos = $exc_pos2;
-			else
-				$exc_pos = 0;
-
-			if ($config['debug'])
-				echo ("pos: ".$pos."\n");
-
-			$exc_begin = $pos - $exc_pos;
-			$substring = substr($line, $exc_begin, strlen($exc));
-
-			if ($config['debug'])
-				echo ("substring: ".$substring."\n");
-
-			if (($exc == strtolower($substring)) || (mb_strtolower($exception['value']) == mb_strtolower($substring)))
-			{
-				$if_exception = 1;
+			if ($if_exception)
 				break;
-			}
 		}
 	}
 
