@@ -108,7 +108,8 @@ $config = array(
 			'js'
 		),
 		'suspected' => array(
-			'suspected'
+			'suspected',
+			'infected'
 		)
 	)
 );
