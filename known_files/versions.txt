@@ -75,6 +75,8 @@ OpenCart 2.1.0.2
 
 phpBB 3.0.14
 
+Simpla CMS 2.3.8
+
 UMI.CMS 15
 
 Wordpress 3.4.2
