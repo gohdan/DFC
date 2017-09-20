@@ -207,7 +207,7 @@ function check_php_file($filename, $file_contents_string, $patterns, $exceptions
 
 		if (!$if_exclude_line)
 		{
-			if (0 == $line_num)
+			if ((0 == $line_num) || (1 == $line_num))
 				$line = detect_head_inject($filename, $line);
 
 			if (strlen($line) >= $config['dangerous_strlen'])
