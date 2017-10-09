@@ -105,6 +105,7 @@ Wordpress 4.7.2
 Wordpress 4.7.3
 Wordpress 4.7.4
 Wordpress 4.7.5
+Wordpress 4.7.6
 Wordpress 4.8
 Wordpress 4.8.1
 Wordpress 4.8.2
