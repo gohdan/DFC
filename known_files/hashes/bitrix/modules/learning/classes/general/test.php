@@ -1,1 +1,2 @@
 Bitrix 16.5 Business Demo = 2642c07630592821b8ecf681629e0509
+Bitrix 17.0.9 Business Demo = 223710628514bed10337def437fa4933
