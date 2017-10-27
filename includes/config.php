@@ -75,7 +75,10 @@ $config = array(
 			'install',
 			'cif',
 			'engine',
-			'profile'
+			'profile',
+
+			// PHP tests
+			'phpt'
 		),
 		'perl' => array(
 			'pl',
