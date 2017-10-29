@@ -1,0 +1,1 @@
+Joomla 3.0.2 = e385701de467068d36faae7b0583dc3a

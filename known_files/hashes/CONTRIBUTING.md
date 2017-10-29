@@ -1,1 +1,2 @@
 UMI.CMS 15 = 12ec22f38dbbaf70d558c9bba17ecb38
+Joomla 3.0.2 = 3826ba0bb3e8fb82fa9524548e7858b3

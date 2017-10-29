@@ -11,3 +11,4 @@ Joomla 3.5.1 = 901405df5e17d7c91b9e8942a779ebcf
 Joomla 3.7.0 = 6021485df64215be5bffbff5b5da93f5
 Joomla 2.5.9 = ae6b409685f462b9936a4add7ba12f21
 Joomla 3.3.6 = 97c21f2cda712c0f9faece6c7f314901
+Joomla 3.0.2 = 1d2a0a84c912465f5f0a58ca7e64f998

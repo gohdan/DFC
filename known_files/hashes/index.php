@@ -37,3 +37,4 @@ CodeIgniter 2.0.3 = a1bc7242e0506fbfb7223f242b05a5a7
 DataLife Engine 11.2 = 5ebc8b0866477c357ea6b24194441d21
 DataLife Engine 11.3 = 2995532f193be41a36c78b4897d43e35
 Simpla CMS 2.3.8 = a6ecfc7c2d6b773f607e09ece0e2d98d
+Joomla 3.0.2 = 399060396fd17e3d9d0bf7066ee6f9cf
