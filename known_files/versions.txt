@@ -118,5 +118,6 @@ Wordpress 4.8
 Wordpress 4.8.1
 Wordpress 4.8.2
 Wordpress 4.8.3
+Wordpress 4.8.4
 Wordpress 4.9
 
