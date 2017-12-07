@@ -1,1 +1,2 @@
 Joomla 3.0.2 = 682e1074a9731c8852806f760a977f14
+Joomla 3.1.1 = c326d6ee5fa67cfe195c7ebae3b9cff3
