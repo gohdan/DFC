@@ -96,6 +96,7 @@ Wordpress 3.5.1
 Wordpress 3.5.2
 Wordpress 3.8.16
 Wordpress 3.8.21
+Wordpress 3.8.24
 Wordpress 4.0
 Wordpress 4.1.1
 Wordpress 4.1.13
