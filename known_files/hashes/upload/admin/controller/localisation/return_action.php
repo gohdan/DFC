@@ -1,1 +1,2 @@
 OpenCart 2.1.0.2 = 99b92570ee024858fc7552bee0f266ba
+OpenCart 2.0.1.1 = 1621b3b3daa2d0d75c78839c49e9e68d
