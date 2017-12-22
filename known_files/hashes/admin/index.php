@@ -5,3 +5,4 @@ OpenCart 1.5.6.2 = 9922ebeb30f1bd94bbf1fcfe041609de
 OpenCart 1.5.6.3 = 767d161dfa3391f34dc2e5bcf74ef65e
 OpenCart 1.5.6.4 = 519ef105011d8fd5c1b83eef29cdb73f
 HostCMS 6.7 = 721b8ae2858da84d64b3fd2322888554
+OpenCart 1.5.4 = fa36a24d971e540b9859abe001266e1b

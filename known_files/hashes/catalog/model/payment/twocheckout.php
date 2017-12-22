@@ -1,2 +1,3 @@
 OpenCart 1.5.5.1 = 968cd3daaa769e587941380e6a932d68
 OpenCart 1.5.6.1 = 90d6649bd1bf2dec3aaa7c7165c02268
+OpenCart 1.5.4 = d426e4ecb167a7cca02a73898d4706fe
