@@ -108,8 +108,9 @@ Wordpress 4.2.13
 Wordpress 4.3.9
 Wordpress 4.3.12
 Wordpress 4.4.2
-Wordpress 4.4.12
+Wordpress 4.4.8
 Wordpress 4.4.9
+Wordpress 4.4.12
 Wordpress 4.5.2
 Wordpress 4.5.3
 Wordpress 4.5.4
