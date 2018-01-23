@@ -40,3 +40,4 @@ Simpla CMS 2.3.8 = a6ecfc7c2d6b773f607e09ece0e2d98d
 Joomla 3.0.2 = 399060396fd17e3d9d0bf7066ee6f9cf
 Evolution 1.3.6 = 1a580fcd2fe7218b42b621ec00bfedfd
 OpenCart 1.5.4 = 50537ae69b632140d24060aa9df6b147
+Joomla 3.4.1 = 45fbdd0f02416807a12218693f179ce1
