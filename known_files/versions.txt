@@ -96,6 +96,7 @@ Simpla CMS 2.3.8
 UMI.CMS 15
 
 Wordpress 3.4.2
+Wordpress 3.5
 Wordpress 3.5.1
 Wordpress 3.5.2
 Wordpress 3.8.16
