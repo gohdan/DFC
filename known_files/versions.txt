@@ -22,6 +22,7 @@ HostCMS 6.7
 
 Joomla 1.5.11
 Joomla 1.5.14
+Joomla 1.5.15
 Joomla 1.5.20
 Joomla 1.5.22
 Joomla 1.5.23
