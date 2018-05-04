@@ -143,6 +143,7 @@ Wordpress 4.8.2
 Wordpress 4.8.3
 Wordpress 4.8.4
 Wordpress 4.8.5
+Wordpress 4.8.6
 Wordpress 4.9
 Wordpress 4.9.1
 Wordpress 4.9.2
