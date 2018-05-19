@@ -152,4 +152,5 @@ Wordpress 4.9.2
 Wordpress 4.9.3
 Wordpress 4.9.4
 Wordpress 4.9.5
+Wordpress 4.9.6
 
