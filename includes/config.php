@@ -57,7 +57,8 @@ $config = array(
 		'preg_replace',
 		'str_rot13',
 		'fopen',
-		'_REQUEST'
+		'_REQUEST',
+		'passthru'
 	),
 	'filetypes' => array(
 		'php' => array(
