@@ -75,10 +75,15 @@ function detect_head_inject($filename, $line)
 {
 	global $config;
 
+	if ($config['debug'])
+		echo ("*** head injections detection ***\n");
+
 	foreach($config['inject_strings'] as $inject_string)
 	{
 		if (false !== strpos($line, $inject_string))
 		{
+			if ($config['debug'])
+				echo ("injection detected: ".$inject_string."\n");
 			$pos1 = strpos($line, "?><?");
 			$pos2 = strpos($line, "?> <?");
 
@@ -105,6 +110,10 @@ function detect_head_inject($filename, $line)
 			}
 		}
 	}
+
+	if ($config['debug'])
+		echo ("*** end: head injections detection ***\n");
+
 	return $line;
 }
 
@@ -122,12 +131,6 @@ function check_php_file($filename, $file_contents_string, $patterns, $exceptions
 		$file_contents = array();
 		$file_contents_string = "";
 		$new_file_contents = "";
-	}
-	else if ($lines_qty <= 3)
-	{
-		write_detection("short_scripts.txt", $filename);
-		write_detection("short_scripts.txt", $file_contents_string);
-		write_detection("short_scripts.txt", "\n");
 	}
 
 	foreach($file_contents as $line_num => $line)
@@ -151,6 +154,19 @@ function check_php_file($filename, $file_contents_string, $patterns, $exceptions
 			write_detection ("cache_masquerade.txt", $filename);
 			$if_exclude_line = 1;
 			$if_exclude_block = 1;
+		}
+
+		if (!$if_exclude_line)
+		{
+			if ((0 == $line_num) || (1 == $line_num))
+			{
+				$line_old = "";
+				while ($line_old != $line)
+				{
+					$line_old = $line;
+					$line = detect_head_inject($filename, $line);
+				}
+			}
 		}
 
 		// Search of long lines and base64 blocks
@@ -207,9 +223,6 @@ function check_php_file($filename, $file_contents_string, $patterns, $exceptions
 
 		if (!$if_exclude_line)
 		{
-			if ((0 == $line_num) || (1 == $line_num))
-				$line = detect_head_inject($filename, $line);
-
 			if (strlen($line) >= $config['dangerous_strlen'])
 				write_detection_full($config['detections_dir'], $filename, $file_contents, $line_num, "long", "lines");
 
@@ -252,6 +265,13 @@ function check_php_file($filename, $file_contents_string, $patterns, $exceptions
 		else
 			if ($config['debug'])
 				echo ("excluding line from file\n");
+	}
+
+	if (($lines_qty <= 3) && ("" != $new_file_contents))
+	{
+		write_detection("short_scripts.txt", $filename);
+		write_detection("short_scripts.txt", $new_file_contents);
+		write_detection("short_scripts.txt", "\n");
 	}
 
 	if ($new_file_contents != $file_contents_string)
