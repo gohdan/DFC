@@ -80,6 +80,8 @@ MODX Revolution 2.2.8
 MODX Revolution 2.3.1
 MODX Revolution 2.3.2
 MODX Revolution 2.3.3
+MODX Revolution 2.3.4
+MODX Revolution 2.3.5
 MODX Revolution 2.4.1
 MODX Revolution 2.4.2
 MODX Revolution 2.5.0
