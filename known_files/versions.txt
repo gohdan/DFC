@@ -85,6 +85,7 @@ MODX Revolution 2.3.5
 MODX Revolution 2.4.1
 MODX Revolution 2.4.2
 MODX Revolution 2.5.0
+MODX Revolution 2.5.2
 
 OpenCart 1.5.4
 OpenCart 1.5.5.1
