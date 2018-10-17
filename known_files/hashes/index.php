@@ -41,3 +41,4 @@ Joomla 3.0.2 = 399060396fd17e3d9d0bf7066ee6f9cf
 Evolution 1.3.6 = 1a580fcd2fe7218b42b621ec00bfedfd
 OpenCart 1.5.4 = 50537ae69b632140d24060aa9df6b147
 Joomla 3.4.1 = 45fbdd0f02416807a12218693f179ce1
+MODX Revolution 2.6.5 = 52b4f1c94e5c3ec8788eb7ead7aaa651

@@ -86,6 +86,7 @@ MODX Revolution 2.4.1
 MODX Revolution 2.4.2
 MODX Revolution 2.5.0
 MODX Revolution 2.5.2
+MODX Revolution 2.6.5
 
 OpenCart 1.5.4
 OpenCart 1.5.5.1
@@ -151,7 +152,6 @@ Wordpress 4.8.3
 Wordpress 4.8.4
 Wordpress 4.8.5
 Wordpress 4.8.6
-Wordpress 4.8.7
 Wordpress 4.9
 Wordpress 4.9.1
 Wordpress 4.9.2

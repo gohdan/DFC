@@ -1,0 +1,1 @@
+MODX Revolution 2.6.5 = 97f2c45490e64494628295a5398bd19e
