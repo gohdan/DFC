@@ -2,3 +2,4 @@ ModX Revolution 2.5.0 = 76258ebab93ea576421d8e4550a6d705
 ModX Revolution 2.3.3 = cb898a05ac8112c830126a79c0c4e241
 MODX Revolution 2.2.8 = 42743c62b6d45b76180178ae4712292f
 MODX Revolution 2.6.5 = c0b4432e8620922fecd02f2c1f6364c2
+MODX Revolution 2.5.7 = 55240c7224ca9f8fb1a5646e64de2b50

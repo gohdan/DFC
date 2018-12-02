@@ -9,3 +9,4 @@ MODX Revolution 2.3.4 = 70690d2493e9b4523e48cbc11af87eef
 MODX Revolution 2.3.5 = 4ac7a18f73b49f08a439284544cce147
 MODX Revolution 2.5.2 = 6697881a1c50585c68f000d98d0efb45
 MODX Revolution 2.6.5 = 6a9d0483c83cc885acd89ab80fb79b26
+MODX Revolution 2.5.7 = 714eed1f00c1d407432b7e8bf8f5330f
