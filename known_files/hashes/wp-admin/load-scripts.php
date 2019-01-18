@@ -6,3 +6,4 @@ Wordpress 3.5.2 = b6c3ffc3ee6b242fe27d4c1752073962
 Wordpress 4.2.13 = 96eb409acc570ff0473fd873be787db5
 Wordpress 3.4.2 = 71ad94f5ae4290dc10eb5ea6e626cb6c
 Wordpress 4.4.2 = 26f88952020efa8104c34b9c8deeb8c6
+Wordpress 5.0.3 = aacff0e6f0ba8ea2b96c4f3af242ca3a

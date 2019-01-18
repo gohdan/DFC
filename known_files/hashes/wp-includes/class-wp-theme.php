@@ -21,3 +21,4 @@ Wordpress 3.8.21 = 7fcd146c18a984eaee8f3f1efa732d97
 Wordpress 4.9 = c9f2f20f59b3db1a4cd461f429a39657
 Wordpress 4.9.1 = 88927c602622cff13dd9cc397cb7dd8e
 Wordpress 4.9.6 = 0c9ef4f84aacf5d8aa8391e83ebd2b1f
+Wordpress 5.0.3 = e97faad2acd0ea3843aa671df92054ba

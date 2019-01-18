@@ -11,3 +11,4 @@ CodeIgniter 2.0.3 = 858e9dd259008840bd32e9f689842f14
 Wordpress 3.8.21 = 9a3eb3f2edc48eb599bb808cab446a1f
 OpenCart 2.0.1.1 = 9848e65b95604bca7e550c857d0f5d5e
 Wordpress 4.9.2 = 8013f424b563942f2af074eaf084946b
+Wordpress 5.0.3 = 5d0cfd369ed1ba090a44705df8d7bc2f
