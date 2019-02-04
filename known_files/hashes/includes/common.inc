@@ -9,3 +9,5 @@ Drupal 7.38 = c5db5f0afe01e2fed9bea6653d72ea49
 Drupal 7.50 = 3701526f40c26fc87ff60715b919b22d
 Drupal 7.59 = b673c65f5aee19ea6fc9f4523ab3bd5b
 Drupal 7.56 = 90b44241f4da58acbd735a1f720e7c9f
+Drupal 7.60 = ecacd0c07efcea1b0b4dd871cb8500ec
+Drupal 7.61 = 2219a1ca93423be2f3596dc787687920

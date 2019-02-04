@@ -18,6 +18,8 @@ Drupal 7.50
 Drupal 7.54
 Drupal 7.56
 Drupal 7.59
+Drupal 7.60
+Drupal 7.61
 
 Evolution 1.3.6
 

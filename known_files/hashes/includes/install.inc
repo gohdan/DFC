@@ -5,3 +5,4 @@ Drupal 7.41 = cb90c3aa95d2ab6e0738dfdb1e7201c4
 Drupal 7.24 = a498ddeed59a1747a20243737d996d8e
 Drupal 7.54 = 4ab55da40be133b6bfb2747ca8a7d48b
 Drupal 7.22 = 84feb2036df2dea57c3b1a9fc3679e4b
+Drupal 7.61 = ce16428b0e6e4a18f4fb533bc43f9095
