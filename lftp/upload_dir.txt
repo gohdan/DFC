@@ -1,0 +1,11 @@
+set ftp:list-options -a;
+set xfer:log 1;
+set xfer:log-file ../xfer.log;
+set ssl:verify-certificate no;
+
+open 'ftp://host';
+user user password
+
+mirror -R --verbose /path/dir dir
+
+bye
