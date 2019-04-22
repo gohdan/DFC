@@ -1,1 +1,2 @@
 Wordpress 5.0.3 = 8a70f593b4e1c7255d1477a5b943de61
+Wordpress 5.1.1 = 709d82aee58b22ca25ec93d1c75e3a78

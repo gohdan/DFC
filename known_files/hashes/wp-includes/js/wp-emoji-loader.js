@@ -9,3 +9,4 @@ Wordpress 4.8.2 = a42c5669def2238669d0ffd4b08228cd
 Wordpress 4.9 = 0f5ead2b783d2b11cfde46efd1fcf57a
 Wordpress 4.9.3 = 2272ac17f83478423a87fda1b8463a1b
 Wordpress 4.9.8 = be2507b311be3056d268a3a42fe7bec6
+Wordpress 5.1.1 = fa0e0151965168021aee0518876d8453

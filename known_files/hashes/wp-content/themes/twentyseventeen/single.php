@@ -1,2 +1,3 @@
 Wordpress 4.7 = 1ce1c18479665eb751f6160a28b9c1c2
 Wordpress 4.8 = 3246bc17000a9da2d265b27de3c77786
+Wordpress 5.1.1 = 72b9fa8d212f33e86fb6597923aab5e2
