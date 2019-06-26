@@ -1,0 +1,1 @@
+Wordpress 5.2.2 = 856624eb39ee17fc563f0c9a61959e5b

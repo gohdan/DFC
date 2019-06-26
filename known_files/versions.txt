@@ -168,3 +168,4 @@ Wordpress 4.9.7
 Wordpress 4.9.8
 Wordpress 5.0.3
 Wordpress 5.1.1
+Wordpress 5.2.2
