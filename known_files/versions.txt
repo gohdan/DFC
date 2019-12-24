@@ -173,3 +173,4 @@ Wordpress 5.0.3
 Wordpress 5.1.1
 Wordpress 5.2.2
 Wordpress 5.3.1
+Wordpress 5.3.2
